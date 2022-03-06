@@ -1,0 +1,109 @@
+body,
+html,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Augusta';
+}
+
+a {
+  text-decoration: none;
+}
+
+span, 
+p, 
+h5,
+h6 {
+  /*font-family: Arial, Helvetica, sans-serif !important;*/
+  font-family: "Poppins",sans-serif !important;
+  /*font-size: 1em !important;*/
+  margin: 0;
+  margin-bottom: 2px;
+}
+
+h4 {
+  color: rgb(244, 143, 78);
+  font-size: 2.2em;
+}
+
+h2 {
+  color: rgb(244, 143, 78) !important;
+  font-size: 3em !important;
+  margin-bottom: 15px;
+}
+
+@font-face {
+  font-family: 'Augusta';
+  font-weight: 'normal';
+  src: url("assets/fonts/Augusta.ttf") format("truetype");
+}
+
+html,
+body {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.danteCard {
+  background-color: rgba(104, 76, 172, 0.9) !important;
+}
+
+
+.bankCard {
+  background-color: rgba(104, 76, 172, 0.9) !important;
+}
+
+.dantePurgatoryCard {
+  background-color: rgba(104, 76, 172, 0.9) !important;
+}
+
+.dantePurgatoryCard:hover {
+}
+
+/*.MuiPaper-root {
+  background-color: rgba(104, 76, 172, 0.9) ;
+}*/
+
+.makeStyles-paper-11,
+.makeStyles-paper-11 h2,
+.MuiTypography-body1,
+.MuiPaper-root,
+.MuiPaper-root h2 {
+  /*color: #FFFFFF !important;*/
+}
+
+body {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-position: center center !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
+
+footer .a:hover {
+  fill: '#DA4567';
+}
+
+.MuiToolbar-regular {
+  color: #e0e3bd;
+}
+
+.MuiButton-containedPrimary,
+.MuiButton-containedPrimary:hover,
+.MuiListItem-button:hover,
+.MuiButtonBase-root:hover {
+  color: #fff !important;
+  background-color: rgba(126, 52, 128, 1) !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
