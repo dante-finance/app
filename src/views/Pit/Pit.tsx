@@ -61,7 +61,7 @@ const Pit: React.FC = () => {
         <BackgroundImage />
         {!!account ? (
           <>
-            <h2 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'#FFF', margin: '0px auto 0px auto' }}>Inferno</h2>
+            <h2 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'rgb(244, 143, 78)', margin: '0px auto 0px auto' }}>Inferno</h2>
 
             <StyledBond>
               <StyledCardWrapper>

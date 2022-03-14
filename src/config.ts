@@ -5,7 +5,7 @@ import { Configuration } from './tomb-finance/config';
 import { BankInfo } from './tomb-finance';
 
 const configurations: { [env: string]: Configuration } = {
-  development: {
+  /*development: {
     chainId: 4002,
     networkName: 'Fantom Opera Testnet',
     ftmscanUrl: 'https://testnet.ftmscan.com',
@@ -25,8 +25,29 @@ const configurations: { [env: string]: Configuration } = {
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
     masonryLaunchesAt: new Date('2020-12-11T00:00:00Z'),
     refreshInterval: 10000,
+  },*/
+  development: {
+    chainId: 250,
+    networkName: 'Fantom Opera',
+    ftmscanUrl: 'https://ftmscan.com/',
+    defaultProvider: 'https://rpc.fantom.network/',
+    deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
+    externalTokens: {
+      WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],
+      USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 18],
+      TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
+      'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
+      'DANTE-TOMB-LP': ['0x0cb8b223d3e62140d45a6ed2fa79e9d298e368c1', 18],
+      'GRAIL-FTM-LP': ['0x94c8f3ce7181bc2a24b43fc2ca0b0b9b4587735e', 18],
+      'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
+      'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18]
+    },
+    baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
+    bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
+    masonryLaunchesAt: new Date('2020-12-11T00:00:00Z'),
+    refreshInterval: 10000,
   },
-  production: {
+  /*production: {
     chainId: 4002,
     networkName: 'Fantom Opera Testnet',
     ftmscanUrl: 'https://testnet.ftmscan.com',
@@ -41,6 +62,27 @@ const configurations: { [env: string]: Configuration } = {
       'GRAIL-FTM-LP': ['0x78c7fe92dd16392232a45dd3c5a930f2bd580418', 18],
       'TOMB-FTM-LP': ['0xfda64eedbd9f0ecd8e8932bd6724c529417b6851', 18],
       'DANTE-GRAIL-LP': ['0x521bbc668698999ac18d631002665c66daabef5a', 18]
+    },
+    baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
+    bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
+    masonryLaunchesAt: new Date('2020-12-11T00:00:00Z'),
+    refreshInterval: 10000,
+  }*/
+  production: {
+    chainId: 250,
+    networkName: 'Fantom Opera',
+    ftmscanUrl: 'https://ftmscan.com/',
+    defaultProvider: 'https://rpc.fantom.network/',
+    deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
+    externalTokens: {
+      WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],
+      USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 18],
+      TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
+      'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
+      'DANTE-TOMB-LP': ['0x0cb8b223d3e62140d45a6ed2fa79e9d298e368c1', 18],
+      'GRAIL-FTM-LP': ['0x94c8f3ce7181bc2a24b43fc2ca0b0b9b4587735e', 18],
+      'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
+      'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18]
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),

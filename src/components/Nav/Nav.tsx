@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import Kyc from '../../assets/img/kyc.png';
+import Kyc from '../../assets/img/KYC_logo.png';
 
 import {
   AppBar,
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: 240,
+    backgroundColor: 'rgba(104, 76, 172, 0.9)'
   },
   hide: {
     display: 'none',
@@ -57,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Augusta',
     fontSize: '30px',
     flexGrow: 1,
+  },
+  toolbarTitleMobile: {
+    fontFamily: 'Augusta',
+    color: '#FFF'
   },
   link: {
     textTransform: 'uppercase',
@@ -120,9 +125,7 @@ const Nav = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Tomb Finance
-            </Typography>
+            <Typography variant="h2" className={classes.toolbarTitleMobile} noWrap>Dante Finance</Typography>
 
             <Drawer
               className={classes.drawer}
@@ -143,9 +146,9 @@ const Nav = () => {
               <Divider />
               <List>
                 <ListItemLink primary="Home" to="/" />
-                <ListItemLink primary="Cemetery" to="/cemetery" />
-                <ListItemLink primary="Masonry" to="/masonry" />
-                <ListItemLink primary="Pit" to="/pit" />
+                <ListItemLink primary="Purgatory" to="/purgatory" />
+                <ListItemLink primary="Eden" to="/eden" />
+                <ListItemLink primary="Inferno" to="/inferno" />
                 <ListItemLink primary="Regulations" to="/regulations" />
                 <ListItem button component="a" href="https://dantefinance.gitbook.io/dantefinance.com/">
                   <ListItemText>Docs</ListItemText>
