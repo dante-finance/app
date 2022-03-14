@@ -196,8 +196,7 @@ const Home = () => {
                 target="_blank"
                 href={buyTombAddress}
                 variant="contained"
-                style={{ marginRight: '10px' }}
-              >Buy TOMB</Button>
+                style={{ marginRight: '10px' }}>Buy DANTE</Button>
               <Button 
                 variant="contained" 
                 target="_blank" 

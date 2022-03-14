@@ -64,7 +64,7 @@ const Masonry = () => {
       <BackgroundImage />
       {!!account ? (
         <>
-          <h2 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'#FFF', margin: '0px auto 0px auto' }}>Eden</h2>
+          <h2 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'rgb(244, 143, 78)', margin: '0px auto 0px auto' }}>Eden</h2>
           <Box mt={5}>
             <Grid container justify="center" spacing={3}>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
