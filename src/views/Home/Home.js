@@ -17,7 +17,7 @@ import usetShareStats from '../../hooks/usetShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useFetchGenesisStartTime from '../../hooks/useFetchGenesisStartTime';
 import { Dante as tombTesting, Grail as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
-import { Dante as tombProd, Grail as tShareProd } from '../../tomb-finance/deployments/deployments.testing.json';
+import { Dante as tombProd, Grail as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
 
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 
@@ -65,10 +65,8 @@ const Home = () => {
     tShare = tShareProd;
   }
 
-  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
-  const danteGraph = 'https://dexscreener.com/';
-  const grailGraph = 'https://dexscreener.com/';
+  console.log (tomb.address);
+  console.log (tShare.address);
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
@@ -132,10 +130,15 @@ const Home = () => {
     />,
   );
 
-  const timestamp = useFetchGenesisStartTime();
-  //const timestamp = 1646505295;
+  let timestamp = useFetchGenesisStartTime();
+  //timestamp = 1647434448;
   var countDownDate = new Date(timestamp * 1000);
   let genesisStarted = Date.now() > (timestamp * 1000);
+
+  const buyTombAddress = 'https://spookyswap.finance/swap?inputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7&outputCurrency=' + tomb.address;
+  const buyTShareAddress = 'https://spookyswap.finance/swap?inputCurrency=FTM&outputCurrency=' + tShare.address;
+  const danteGraph = 'https://dexscreener.com/';
+  const grailGraph = 'https://dexscreener.com/';
 
   return (
     <Page>
@@ -149,14 +152,18 @@ const Home = () => {
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>
           <Paper className='danteCard'>
-            <Box p={4}>
+            <Box p={3}>
               <h2>Welcome to Dante Finance</h2>
               <p>Join Dante's epic journey from Inferno to Eden. Dante is a new token pegged to Tomb with future NFT utility.</p>
               <p>Stake your Grail in Eden to earn inflationary Dante rewards or provide liquidity on pairs and start earning today!</p>
-              
-              {!genesisStarted ? ( <><br/><LaunchCountdown deadline={countDownDate}></LaunchCountdown></> ) : <></>}
             </Box>
           </Paper>
+
+          {!genesisStarted ? (
+          <Paper style={{marginTop: '15px'}} className='danteCard'>
+            <Box p={3}>{!genesisStarted ? (<LaunchCountdown deadline={countDownDate}></LaunchCountdown>) : <></>}</Box>
+          </Paper>) : <></>}
+          
         </Grid>
 
         <Grid container spacing={3}>
