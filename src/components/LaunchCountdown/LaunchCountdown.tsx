@@ -14,7 +14,7 @@ const LaunchCountdown: React.FC<LaunchCountdownProps> = ({ deadline }) => {
     const m = String(minutes);
     const s = String(seconds);
 
-    return <><span style={{color: 'rgb(244, 143, 78)'}}>GENESIS START TIME</span><span>: {h} Hours {m} Minutes {s} Seconds</span></>;
+    return <><span style={{color: 'rgb(244, 143, 78)', fontSize:'24px'}}>Genesis Countdown</span><span style={{fontSize:'24px'}}>: {h} Hours {m} Minutes {s} Seconds</span></>;
   };
 
   return (
