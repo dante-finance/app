@@ -30,7 +30,7 @@ const configurations: { [env: string]: Configuration } = {
     chainId: 250,
     networkName: 'Fantom Opera',
     ftmscanUrl: 'https://ftmscan.com/',
-    defaultProvider: 'https://rpc.fantom.network/',
+    defaultProvider: 'https://rpc.ftm.tools/',
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],
@@ -72,7 +72,7 @@ const configurations: { [env: string]: Configuration } = {
     chainId: 250,
     networkName: 'Fantom Opera',
     ftmscanUrl: 'https://ftmscan.com/',
-    defaultProvider: 'https://rpc.fantom.network/',
+    defaultProvider: 'https://rpc.ftm.tools/',
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],

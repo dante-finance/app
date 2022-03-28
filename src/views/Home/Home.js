@@ -103,17 +103,19 @@ const Home = () => {
   );
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
-  const tombLpZap = useZap({ depositTokenName: 'DANTE-TOMB-LP' });
-  const tshareLpZap = useZap({ depositTokenName: 'GRAIL-FTM-LP' });
+  const tombLpZap = useZap();
+  const tshareLpZap = useZap();
 
   const [onPresentTombZap, onDissmissTombZap] = useModal(
     <ZapModal
       decimals={18}
-      onConfirm={(zappingToken, tokenName, amount) => {
+      onConfirm={(zappingToken, tokenName, amount, minAmount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        tombLpZap.onZap(zappingToken, tokenName, amount);
+        //console.log(minAmount);
+        tombLpZap.onZap(zappingToken, tokenName, amount, minAmount);
         onDissmissTombZap();
       }}
+      zapToken='TOMB'
       tokenName={'DANTE-TOMB-LP'}
     />,
   );
@@ -121,11 +123,12 @@ const Home = () => {
   const [onPresentTshareZap, onDissmissTshareZap] = useModal(
     <ZapModal
       decimals={18}
-      onConfirm={(zappingToken, tokenName, amount) => {
+      onConfirm={(zappingToken, tokenName, amount, minAmount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        tshareLpZap.onZap(zappingToken, tokenName, amount);
+        tshareLpZap.onZap(zappingToken, tokenName, amount, minAmount);
         onDissmissTshareZap();
       }}
+      zapToken='FTM'
       tokenName={'GRAIL-FTM-LP'}
     />,
   );
@@ -347,6 +350,11 @@ const Home = () => {
                 <TokenSymbol symbol="DANTE-TOMB-LP" />
               </Box>
               <Box mt={2}>
+                <Button color="primary" onClick={onPresentTombZap} variant="contained">
+                  Zap In
+                </Button>
+              </Box>
+              <Box mt={2}>
                 <span style={{ fontSize: '24px' }}>
                   {tombLPStats?.tokenAmount ? tombLPStats?.tokenAmount : '-.--'} Dante / {tombLPStats?.ftmAmount ? tombLPStats?.ftmAmount : '-.--'} Tomb
                 </span>
@@ -372,6 +380,11 @@ const Home = () => {
               <h4>Grail-Ftm Spooky LP</h4>
               <Box mt={2}>
                 <TokenSymbol symbol="GRAIL-FTM-LP" />
+              </Box>
+              <Box mt={2}>
+                <Button color="primary" onClick={onPresentTshareZap} variant="contained">
+                  Zap In
+                </Button>
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '24px' }}>

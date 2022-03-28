@@ -9,7 +9,7 @@ import { getFullDisplayBalance, getDisplayBalance, getBalance } from '../utils/f
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
-import moment from 'moment';
+import moment, { min } from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
 import { FTM_TICKER, SPOOKY_ROUTER_ADDR, TOMB_TICKER } from '../utils/constants';
 import { abi as IUniswapV2Pair } from './IUniswapV2Pair.json'
@@ -161,7 +161,7 @@ export class TombFinance {
     const tokenAmountInOneLP = Number(token0Amount) / Number(lpTokenSupply);
     const ftmAmountInOneLP = Number(token1Amount) / Number(lpTokenSupply);
     
-    const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, token0 === this.DANTE);
+    const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
 
@@ -313,6 +313,8 @@ export class TombFinance {
           return rewardPerSecond.mul(4000).div(20000);
         case 'TOMB':
           return rewardPerSecond.mul(2000).div(20000);
+        case 'FAME':
+          return rewardPerSecond.mul(0).div(20000);
         default:
           return 0;
       }
@@ -350,13 +352,13 @@ export class TombFinance {
         return await this.getWFTMPriceFromPancakeswap();
       }
       case 'DANTE-TOMB-LP': {
-        return await this.getLPTokenPrice(token, this.DANTE, true);
+        return await this.getLPTokenPrice(token, this.DANTE);
       }
       case 'GRAIL-FTM-LP': {
-        return await this.getLPTokenPrice(token, this.TSHARE, false);
+        return await this.getLPTokenPrice(token, this.TSHARE);
       }
       case 'DANTE-GRAIL-LP': {
-        return await this.getLPTokenPrice(token, this.DANTE, true);;
+        return await this.getLPTokenPrice(token, this.DANTE);;
       }
       case 'GRAIL': {
         const priceInFTM = await this.getTokenPriceFromPancakeswap(
@@ -380,6 +382,9 @@ export class TombFinance {
       }
       case 'USDC': {
         return '1';
+      }
+      case 'FAME': {
+        return '0';
       }
       default: {
         return '0'
@@ -449,11 +454,11 @@ export class TombFinance {
    * @param isTomb sanity check for usage of tomb token or tShare
    * @returns price of the LP token
    */
-  async getLPTokenPrice(lpToken: ERC20, token: ERC20, isDante: boolean): Promise<string> {
+  async getLPTokenPrice(lpToken: ERC20, token: ERC20): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
-    const stat = isDante === true ? await this.getDanteStat() : await this.getShareStat();
+    const stat = (token === this.DANTE ? await this.getDanteStat() : await this.getShareStat());
     const priceOfToken = stat.priceInDollars;
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2); //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
@@ -819,40 +824,29 @@ export class TombFinance {
     return events;
   }
 
-  async estimateZapIn(tokenName: string, lpName: string, amount: string): Promise<number[]> {
-    const { zapper } = this.contracts;
+  async estimateZapIn(tokenName: string, lpName: string, amount: string, router: Contract): Promise<number[]> {
+    //const { TombZapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
-    let estimate;
-    if (tokenName === FTM_TICKER) {
-      estimate = await zapper.estimateZapIn(lpToken.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18));
-    } else {
-      const token = tokenName === TOMB_TICKER ? this.DANTE : this.TSHARE;
-      estimate = await zapper.estimateZapInToken(
-        token.address,
-        lpToken.address,
-        SPOOKY_ROUTER_ADDR,
-        parseUnits(amount, 18),
-      );
-    }
+    
+    let estimate = await router.estimateZapIn (
+      lpToken.address,
+      SPOOKY_ROUTER_ADDR,
+      parseUnits(amount, 18)
+    );
+    
     return [estimate[0] / 1e18, estimate[1] / 1e18];
   }
-  async zapIn(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {
-    const { zapper } = this.contracts;
+
+  async zapIn(tokenName: string, lpName: string, amount: string, minAmount: string, router: Contract): Promise<TransactionResponse> {
+    //const { TombZapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
-    if (tokenName === FTM_TICKER) {
-      let overrides = {
-        value: parseUnits(amount, 18),
-      };
-      return await zapper.zapIn(lpToken.address, SPOOKY_ROUTER_ADDR, this.myAccount, overrides);
-    } else {
-      const token = tokenName === TOMB_TICKER ? this.DANTE : this.TSHARE;
-      return await zapper.zapInToken(
-        token.address,
-        parseUnits(amount, 18),
-        lpToken.address,
-        SPOOKY_ROUTER_ADDR,
-        this.myAccount,
-      );
-    }
+
+    return await router.nativeZapIn(
+      parseUnits(amount, 18),
+      lpToken.address,
+      SPOOKY_ROUTER_ADDR,
+      this.myAccount,
+      parseUnits(minAmount, 18)
+    );
   }
 }
