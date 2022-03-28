@@ -3,18 +3,18 @@ import useTombFinance from './useTombFinance';
 import { Bank } from '../tomb-finance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
-const useZap = (bank: Bank) => {
+const useZap = () => {
   const tombFinance = useTombFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleZap = useCallback(
-    (zappingToken: string, tokenName: string, amount: string) => {
-      handleTransactionReceipt(
-        tombFinance.zapIn(zappingToken, tokenName, amount),
-        `Zap ${amount} in ${bank.depositTokenName}.`,
-      );
-    },
-    [bank, tombFinance, handleTransactionReceipt],
+    (zappingToken: string, tokenName: string, amount: string, minAmount: string) => { 
+      
+      const zapperName = zappingToken === 'TOMB' ? 'TombZapper' : 'WFtmZapper';
+      const contract = tombFinance.contracts[zapperName];
+
+      handleTransactionReceipt(tombFinance.zapIn(zappingToken, tokenName, amount, minAmount, contract), `Zap ${amount}`);
+    }, [tombFinance, handleTransactionReceipt],
   );
   return { onZap: handleZap };
 };
