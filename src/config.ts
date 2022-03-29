@@ -36,11 +36,13 @@ const configurations: { [env: string]: Configuration } = {
       WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],
       USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 18],
       TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
+      FAME: ['0x904f51a2E7eEaf76aaF0418cbAF0B71149686f4A', 18],
       'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
       'DANTE-TOMB-LP': ['0x0cb8b223d3e62140d45a6ed2fa79e9d298e368c1', 18],
       'GRAIL-FTM-LP': ['0x94c8f3ce7181bc2a24b43fc2ca0b0b9b4587735e', 18],
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
-      'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18]
+      'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
+      'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18]
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -78,11 +80,13 @@ const configurations: { [env: string]: Configuration } = {
       WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],
       USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 18],
       TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
+      FAME: ['0x904f51a2E7eEaf76aaF0418cbAF0B71149686f4A', 18],
       'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
       'DANTE-TOMB-LP': ['0x0cb8b223d3e62140d45a6ed2fa79e9d298e368c1', 18],
       'GRAIL-FTM-LP': ['0x94c8f3ce7181bc2a24b43fc2ca0b0b9b4587735e', 18],
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
-      'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18]
+      'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
+      'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18]
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -160,6 +164,20 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: false,
     fee: 0.8
   },
+  /*FameDanteRewardPool: {
+    identifier: 'FameDanteRewardPool',
+    name: 'Earn Dante by Fame',
+    poolId: 4,
+    sectionInUI: 0,
+    contract: 'DanteRewardPool',
+    depositTokenName: 'FAME',
+    depositTokenNameSpan: 'Fame',
+    earnTokenName: 'DANTE',
+    finished: false,
+    sort: 5,
+    closedForStaking: false,
+    fee: 0.8
+  },*/
   DanteTombLPGrailRewardPool: {
     identifier: 'DanteTombLPGrailRewardPool',
     name: 'Earn Grail by Dante-Tomb LP',
@@ -187,8 +205,8 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 2,
     closedForStaking: false,
     fee: 0
-  },
-  DanteGrailLPGrailRewardPool: {
+  }
+  /*DanteGrailLPGrailRewardPool: {
     identifier: 'DanteGrailLPGrailRewardPool',
     name: 'Earn Grail by Dante-Grail LP',
     poolId: 2,
@@ -201,7 +219,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 3,
     closedForStaking: false,
     fee: 0
-  }
+  }*/
 };
 
 export default configurations[process.env.NODE_ENV || 'development'];

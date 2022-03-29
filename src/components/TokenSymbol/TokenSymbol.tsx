@@ -23,11 +23,14 @@ import grailFtmLpLogo from '../../assets/img/grail_fantom.png';
 import danteGrailLpLogo from '../../assets/img/dante_grail.svg';
 import danteLogoPNG from '../../assets/img/dante_500x500.png';
 
+import famePNG from '../../assets/img/fame.png';
+
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
   //=====================
   TOMB: tombLogo,
+  FAME: famePNG,
   TOMBPNG: tombLogoPNG,
   TSHAREPNG: tShareLogoPNG,
   TSHARE: tShareLogo,

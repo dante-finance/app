@@ -25,7 +25,7 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
 
   let token: ERC20;
 
-  if (zappingToken === 'FTM') token = tombFinance.FTM;
+  if (zappingToken === 'WFTM') token = tombFinance.FTM;
   else if (zappingToken === 'TOMB') token = tombFinance.TOMB;
 
   const router: string = token === tombFinance.TOMB ? TOMB_ZAPPER_ROUTER_ADDR : WFTM_ZAPPER_ROUTER_ADDR;
