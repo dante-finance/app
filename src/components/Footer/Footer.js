@@ -59,6 +59,9 @@ const Footer = () => {
             <a href="https://discord.gg/RYybVg3Hjh" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img alt="discord" src={DiscordImage} className={classes.img} />
             </a>
+            <a href="https://t.me/Dante_Finance" rel="noopener noreferrer" target="_blank" className={classes.link}>
+              <img alt="telegram" src={TelegramImage} className={classes.img} />
+            </a>
           </Grid>
         </Grid>
       </Container>

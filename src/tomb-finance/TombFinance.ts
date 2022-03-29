@@ -34,6 +34,8 @@ export class TombFinance {
 
   FTM: ERC20;
   TOMB: ERC20;
+  USDC: ERC20;
+  FAME: ERC20;
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -54,6 +56,8 @@ export class TombFinance {
 
     this.TOMB = this.externalTokens['TOMB'];
     this.FTM = this.externalTokens['WFTM'];
+    this.USDC = this.externalTokens['USDC'];
+    this.FAME = this.externalTokens['FAME'];
 
     // Uniswap V2 Pair
     this.DANTETOMB_LP = new Contract(externalTokens['DANTE-TOMB-LP'][0], IUniswapV2PairABI, provider);
@@ -105,7 +109,7 @@ export class TombFinance {
     const tombCirculatingSupply = supply
       .sub(tombRewardPoolSupply);
 
-    const priceofDanteInTomb = Number(await this.getTokenPriceFromPancakeswap(
+    const priceofDanteInTomb = Number(await this.getTokenPriceFromSpookySwap(
       this.TOMB,
       this.DANTE,
       this.externalTokens['DANTE-TOMB-LP'].address));
@@ -128,7 +132,7 @@ export class TombFinance {
    */
   async getTOMBPriceInDollars(): Promise<number> {
     // how many FTM for a TOMB
-    const priceTOMBInWFTM = await this.getTokenPriceFromPancakeswap(
+    const priceTOMBInWFTM = await this.getTokenPriceFromSpookySwap(
       this.FTM, 
       this.TOMB,
       this.externalTokens['TOMB-FTM-LP'].address);
@@ -213,7 +217,7 @@ export class TombFinance {
 
     const supply = await this.TSHARE.totalSupply();
 
-    const priceInFTM = await this.getTokenPriceFromPancakeswap(
+    const priceInFTM = await this.getTokenPriceFromSpookySwap(
       this.FTM,
       this.TSHARE,
       this.externalTokens['GRAIL-FTM-LP'].address);
@@ -361,7 +365,7 @@ export class TombFinance {
         return await this.getLPTokenPrice(token, this.DANTE);;
       }
       case 'GRAIL': {
-        const priceInFTM = await this.getTokenPriceFromPancakeswap(
+        const priceInFTM = await this.getTokenPriceFromSpookySwap(
           this.FTM,
           this.TSHARE,
           this.externalTokens['GRAIL-FTM-LP'].address);
@@ -371,7 +375,7 @@ export class TombFinance {
         return (Number(priceInFTM) * Number(ftmInDollars)).toFixed(2);
       }
       case 'TOMB': {
-        const priceInFTM = await this.getTokenPriceFromPancakeswap(
+        const priceInFTM = await this.getTokenPriceFromSpookySwap(
           this.FTM,
           this.TOMB,
           this.externalTokens['TOMB-FTM-LP'].address);
@@ -384,7 +388,12 @@ export class TombFinance {
         return '1';
       }
       case 'FAME': {
-        return '0';
+        const priceInUSDC = await this.getTokenPriceFromSpookySwap(
+          this.USDC,
+          this.FAME,
+          this.externalTokens['FAME-USDC-LP'].address);
+
+        return Number(priceInUSDC).toFixed(2);
       }
       default: {
         return '0'
@@ -550,7 +559,7 @@ export class TombFinance {
     return this.masonryVersionOfUser !== 'latest';
   }
 
-  async getTokenPriceFromPancakeswap(
+  async getTokenPriceFromSpookySwap(
     tokenAERC20: ERC20,
     tokenBERC20: ERC20,
     lpAddress: string): Promise<string> {
@@ -583,7 +592,7 @@ export class TombFinance {
 
     const { WFTM, USDC } = this.externalTokens;
 
-    return this.getTokenPriceFromPancakeswap(
+    return this.getTokenPriceFromSpookySwap(
       USDC,
       WFTM,
       this.externalTokens['USDC-FTM-LP'].address

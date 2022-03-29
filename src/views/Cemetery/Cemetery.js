@@ -24,7 +24,9 @@ const Cemetery = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
   const activeBanks = banks.filter((bank) => !bank.finished);
-  const timestamp = useFetchGenesisStartTime();
+  
+  let timestamp = useFetchGenesisStartTime();
+  timestamp = 1648735200;
   var date = new Date(timestamp * 1000).toUTCString();
 
   return (

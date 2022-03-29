@@ -110,23 +110,19 @@ const Bank: React.FC = () => {
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const tombFinance = useTombFinance();
-  const tombAddr = tombFinance.DANTE.address;
-  const tshareAddr = tombFinance.TSHARE.address;
 
   let uniswapUrl: string;
   if (bank.depositTokenName === 'DANTE-TOMB-LP') {
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tombAddr;
+    uniswapUrl = 'https://spookyswap.finance/add/' + tombFinance.TOMB.address + '/' + tombFinance.DANTE.address;
   } else if (bank.depositTokenName === 'GRAIL-FTM-LP') {
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tombFinance.TSHARE.address;
   } else if (bank.depositTokenName === 'DANTE-GRAIL-LP') {
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
+    uniswapUrl = 'https://spookyswap.finance/add/' + tombFinance.DANTE.address + '/' + tombFinance.TSHARE.address;
   }
   return (
     <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
       <CardContent>
-        <StyledLink href={uniswapUrl} target="_blank">
-          {`👻 Provide liquidity for ${bank.depositTokenName} now on SpookySwap 👻`}
-        </StyledLink>
+        <StyledLink href={uniswapUrl} target="_blank"><span>{`👻 Provide liquidity for ${bank.depositTokenName} on SpookySwap 👻`}</span></StyledLink>
       </CardContent>
     </Card>
   );
@@ -151,7 +147,7 @@ const StyledBank = styled.div`
 
 const StyledLink = styled.a`
   font-weight: 700;
-  font-size: 20px;
+  font-size: 16px;
   text-decoration: none;
   color: #FFF;
 `;

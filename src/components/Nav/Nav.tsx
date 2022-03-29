@@ -80,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'none',
     },
   },
+  navTitle: {
+    fontFamily: 'Augusta'
+  }
 }));
 
 const Nav = () => {
@@ -106,11 +109,11 @@ const Nav = () => {
               <a style={{marginLeft: '20px'}} target='_blank' href='https://twitter.com/0xGuard/status/1499422602179317764'><img src={Kyc}></img></a>
             </Typography>
             <Box mr={5}>
-              <Link color="textPrimary" to="/purgatory" className={classes.link}>Purgatory</Link>
-              <Link color="textPrimary" to="/eden" className={classes.link}>Eden</Link>
-              <Link color="textPrimary" to="/inferno" className={classes.link}>Inferno</Link>
-              <Link color="textPrimary" to="/regulations" className={classes.link}>Regulations</Link>
-              <a href="https://dantefinance.gitbook.io/dantefinance.com/" className={classes.link}>Docs</a>
+              <Link color="textPrimary" to="/purgatory" className={classes.link}><span className={classes.navTitle}>Purgatory</span></Link>
+              <Link color="textPrimary" to="/eden" className={classes.link}><span className={classes.navTitle}>Eden</span></Link>
+              <Link color="textPrimary" to="/inferno" className={classes.link}><span className={classes.navTitle}>Inferno</span></Link>
+              <Link color="textPrimary" to="/regulations" className={classes.link}><span className={classes.navTitle}>Regulations</span></Link>
+              <a href="https://dantefinance.gitbook.io/dantefinance.com/" className={classes.link}><span className={classes.navTitle}>Docs</span></a>
             </Box>
             <AccountButton text="Connect" />
           </>

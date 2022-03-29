@@ -16,8 +16,8 @@ import useBondStats from '../../hooks/useBondStats';
 import usetShareStats from '../../hooks/usetShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useFetchGenesisStartTime from '../../hooks/useFetchGenesisStartTime';
-import { Dante as tombTesting, Grail as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
-import { Dante as tombProd, Grail as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
+//import { Dante as tombTesting, Grail as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
+//import { Dante as tombProd, Grail as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
 
 import MetamaskFox from '../../assets/img/metamask-fox.svg';
 
@@ -55,7 +55,7 @@ const Home = () => {
   const tBondStats = useBondStats();
   const tombFinance = useTombFinance();
 
-  let tomb;
+  /*let tomb;
   let tShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     tomb = tombTesting;
@@ -66,7 +66,7 @@ const Home = () => {
   }
 
   console.log (tomb.address);
-  console.log (tShare.address);
+  console.log (tShare.address);*/
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
@@ -128,25 +128,35 @@ const Home = () => {
         tshareLpZap.onZap(zappingToken, tokenName, amount, minAmount);
         onDissmissTshareZap();
       }}
-      zapToken='FTM'
+      zapToken='WFTM'
       tokenName={'GRAIL-FTM-LP'}
     />,
   );
 
-  let timestamp = useFetchGenesisStartTime();
-  //timestamp = 1647434448;
+  //let timestamp = useFetchGenesisStartTime();
+  let timestamp = 1648735200;
   var countDownDate = new Date(timestamp * 1000);
   let genesisStarted = Date.now() > (timestamp * 1000);
 
-  const buyTombAddress = 'https://spookyswap.finance/swap?inputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7&outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://spookyswap.finance/swap?inputCurrency=FTM&outputCurrency=' + tShare.address;
-  const danteGraph = 'https://dexscreener.com/';
-  const grailGraph = 'https://dexscreener.com/';
+  const buyTombAddress = 'https://spookyswap.finance/swap?inputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7&outputCurrency=' + tombFinance.DANTE.address;
+  const buyTShareAddress = 'https://spookyswap.finance/swap?inputCurrency=FTM&outputCurrency=' + tombFinance.TSHARE.address;
+  const danteGraph = 'https://dexscreener.com/fantom/'.concat(tombFinance.externalTokens['DANTE-TOMB-LP'].address);
+  const grailGraph = 'https://dexscreener.com/fantom/'.concat(tombFinance.externalTokens['GRAIL-FTM-LP'].address);
 
   return (
     <Page>
       <BackgroundImage />
       <Grid container spacing={3}>
+
+        <Grid container spacing={3}>
+          <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
+            <Alert variant="filled" severity="warning">
+                <b>The website is currently in test mode! DO NOT BUY OR SELL ANY TOKENS!</b>
+            </Alert>
+          </Grid>
+        </Grid>
+
+        
         {/* Logo */}
         <Grid container item xs={12} sm={4} justify="center">
           {/* <Paper>xs=6 sm=3</Paper> */}
@@ -166,7 +176,6 @@ const Home = () => {
           <Paper style={{marginTop: '15px'}} className='danteCard'>
             <Box p={3}>{!genesisStarted ? (<LaunchCountdown deadline={countDownDate}></LaunchCountdown>) : <></>}</Box>
           </Paper>) : <></>}
-          
         </Grid>
 
         <Grid container spacing={3}>

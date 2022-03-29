@@ -13,7 +13,7 @@ interface TokenInputProps extends InputProps {
 const TokenInput: React.FC<TokenInputProps> = ({ max, symbol, onChange, onSelectMax, value }) => {
   return (
     <StyledTokenInput>
-      <span style={{display: 'flex', justifyContent: 'flex-end' }}>{max.toLocaleString()} {symbol} Available</span>
+      <span style={{display: 'flex', justifyContent: 'flex-end', fontSize: '14px', color:'gray' }}>{max.toLocaleString()} {symbol} Available</span>
       <Input
         endAdornment={
           <StyledTokenAdornmentWrapper>
