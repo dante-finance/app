@@ -38,8 +38,8 @@ const configurations: { [env: string]: Configuration } = {
       TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
       FAME: ['0x904f51a2E7eEaf76aaF0418cbAF0B71149686f4A', 18],
       'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
-      'DANTE-TOMB-LP': ['0x0cb8b223d3e62140d45a6ed2fa79e9d298e368c1', 18],
-      'GRAIL-FTM-LP': ['0x94c8f3ce7181bc2a24b43fc2ca0b0b9b4587735e', 18],
+      'DANTE-TOMB-LP': ['0xac32e07c25cb18266841ed7035390744cd3b1155', 18],
+      'GRAIL-FTM-LP': ['0xf06ea523a86df3bda303967dce59007fd7e85be2', 18],
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
       'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
       'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18]
@@ -82,8 +82,8 @@ const configurations: { [env: string]: Configuration } = {
       TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
       FAME: ['0x904f51a2E7eEaf76aaF0418cbAF0B71149686f4A', 18],
       'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
-      'DANTE-TOMB-LP': ['0x0cb8b223d3e62140d45a6ed2fa79e9d298e368c1', 18],
-      'GRAIL-FTM-LP': ['0x94c8f3ce7181bc2a24b43fc2ca0b0b9b4587735e', 18],
+      'DANTE-TOMB-LP': ['0xac32e07c25cb18266841ed7035390744cd3b1155', 18],
+      'GRAIL-FTM-LP': ['0xf06ea523a86df3bda303967dce59007fd7e85be2', 18],
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
       'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
       'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18]
@@ -164,7 +164,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: false,
     fee: 0.8
   },
-  /*FameDanteRewardPool: {
+  FameDanteRewardPool: {
     identifier: 'FameDanteRewardPool',
     name: 'Earn Dante by Fame',
     poolId: 4,
@@ -177,7 +177,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 5,
     closedForStaking: false,
     fee: 0.8
-  },*/
+  },
   DanteTombLPGrailRewardPool: {
     identifier: 'DanteTombLPGrailRewardPool',
     name: 'Earn Grail by Dante-Tomb LP',
