@@ -1,6 +1,6 @@
 {
   "Dante": {
-    "address": "0xad380729f1cb6b2a8c0584ffa728550941a692bf",
+    "address": "0xda763530614fb51dff9673232c8b3b3e0a67bcf2",
     "abi": [
       {
         "inputs": [],
@@ -507,7 +507,7 @@
     ]
   },
   "DBond": {
-    "address": "0xa210bF39137a51A4E82B998Ec00b38644EE0dbFb",
+    "address": "0xdd286b5f16A9ba9Dfe105208C98b3B1FC8db65Ff",
     "abi": [
       {
         "inputs": [],
@@ -952,7 +952,7 @@
     ]
   },
   "Grail": {
-    "address": "0x7d2Ff5CCa24081cd7A5b2502b46F80B766E9bCB7",
+    "address": "0x255861B569D44Df3E113b6cA090a1122046E6F89",
     "abi": [
       {
         "inputs": [
@@ -1653,7 +1653,7 @@
     ]
   },
   "DanteRewardPool": {
-    "address": "0x875d9A67E9730DFad8C0A26Ed76D69b351227258",
+    "address": "0x3c3E9A4a23fb131268AdEcdAA53Ec293CAb26c78",
     "abi": [
       {
         "inputs": [
@@ -2157,7 +2157,7 @@
     ]
   },
   "GrailRewardPool": {
-    "address": "0x42B6f465a721262746370F1523f41290be37a67D",
+    "address": "0xB2922E886AB9dff160479431F831A43C983A9Ef3",
     "abi": [
       {
         "inputs": [
@@ -2643,7 +2643,7 @@
     ]
   },
   "Masonry": {
-    "address": "0x183077f975c5B0924694cD70E236BD418B42726e",
+    "address": "0x45296207a845a36A9575F4F4a85381E16e275006",
     "abi": [
       {
         "anonymous": false,
@@ -3195,7 +3195,7 @@
     ]
   },
   "Treasury": {
-    "address": "0xDaFd26A4F5F946e06a7e002931f0081dE8f54aAd",
+    "address": "0x3d59d4183f7a04CDFBf3A1B84B792124f2B2DE8A",
     "abi": [
       {
         "anonymous": false,
@@ -4440,7 +4440,7 @@
     ]
   },
   "SeigniorageOracle": {
-    "address": "0xbBEFA5E734E1166a2ffB32AC54E932d9f91C37FF",
+    "address": "0x3f765fa501c0023f265397971976927ab8feb333",
     "abi": [
       {
         "inputs": [

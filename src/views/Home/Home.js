@@ -148,13 +148,13 @@ const Home = () => {
       <BackgroundImage />
       <Grid container spacing={3}>
 
-        <Grid container spacing={3}>
+        {/*<Grid container spacing={3}>
           <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert variant="filled" severity="warning">
                 <b>The website is currently in test mode! DO NOT BUY OR SELL ANY TOKENS!</b>
             </Alert>
           </Grid>
-        </Grid>
+  </Grid>*/}
 
         
         {/* Logo */}
