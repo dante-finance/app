@@ -34,7 +34,7 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],
-      USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 18],
+      USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 6],
       TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
       FAME: ['0x904f51a2E7eEaf76aaF0418cbAF0B71149686f4A', 18],
       'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
@@ -78,7 +78,7 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WFTM: ['0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18],
-      USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 18],
+      USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 6],
       TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
       FAME: ['0x904f51a2E7eEaf76aaF0418cbAF0B71149686f4A', 18],
       'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
