@@ -133,8 +133,8 @@ const Home = () => {
     />,
   );
 
-  //let timestamp = useFetchGenesisStartTime();
-  let timestamp = 1648735200;
+  let timestamp = useFetchGenesisStartTime();
+  //let timestamp = 1648735200;
   var countDownDate = new Date(timestamp * 1000);
   let genesisStarted = Date.now() > (timestamp * 1000);
 

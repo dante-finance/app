@@ -309,16 +309,11 @@ export class TombFinance {
 
       // calculate reward per second based on deposit token allocation
       switch(depositTokenName){
-        case 'DANTE-TOMB-LP':
-          return rewardPerSecond.mul(10000).div(20000);
-        case 'USDC':
-          return rewardPerSecond.mul(4000).div(20000);
-        case 'WFTM':
-          return rewardPerSecond.mul(4000).div(20000);
-        case 'TOMB':
-          return rewardPerSecond.mul(2000).div(20000);
-        case 'FAME':
-          return rewardPerSecond.mul(0).div(20000);
+        case 'DANTE-TOMB-LP':   return rewardPerSecond.mul(10000).div(20010);
+        case 'USDC':            return rewardPerSecond.mul(3750).div(20010);
+        case 'WFTM':            return rewardPerSecond.mul(3750).div(20010);
+        case 'TOMB':            return rewardPerSecond.mul(1500).div(20010);
+        case 'FAME':            return rewardPerSecond.mul(1010).div(20010);
         default:
           return 0;
       }
