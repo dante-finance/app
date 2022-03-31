@@ -27,7 +27,9 @@ const Cemetery = () => {
   
   let timestamp = useFetchGenesisStartTime();
   //timestamp = 1648735200;
-  var date = new Date(timestamp * 1000).toUTCString();
+  var genesisStartTimeDate = new Date(timestamp * 1000).toUTCString();
+
+  var grailRewardPoolStartTimeDate = new Date(1648908000 * 1000).toUTCString();
 
   return (
     <Switch>
@@ -44,6 +46,14 @@ const Cemetery = () => {
                   <h4 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'#FFF', margin: '0px auto 0px auto' }}>
                     Earn Grail by staking liquidity
                   </h4>
+
+                  <Grid container style={{marginTop: '10px'}}>
+                    <Grid item md='3'></Grid>
+                    <Grid item md='6'>
+                      <Alert variant="filled" severity="warning">Pools starting at {grailRewardPoolStartTimeDate} and will run for 370 days.</Alert>
+                    </Grid>
+                    <Grid item md='3'></Grid>
+                  </Grid>
                   
                   <Grid container spacing={3} style={{marginTop: '10px', marginBottom: '10px'}}>
                     {activeBanks
@@ -63,7 +73,7 @@ const Cemetery = () => {
                     <Grid item md='2'></Grid>
                     <Grid item md='8'>
                       <Alert variant="filled" severity="warning">
-                        Pools starting at {date} and will run for 2 days with a 0.8% deposit fee. Please refer to our documentation to understand our protocol's fee model.
+                        Pools starting at {genesisStartTimeDate} and will run for 2 days with a 0.8% deposit fee. Please refer to our documentation to understand our protocol's fee model.
                       </Alert>
                     </Grid>
                     <Grid item md='2'></Grid>
