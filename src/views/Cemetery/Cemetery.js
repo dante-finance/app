@@ -26,7 +26,7 @@ const Cemetery = () => {
   const activeBanks = banks.filter((bank) => !bank.finished);
   
   let timestamp = useFetchGenesisStartTime();
-  timestamp = 1648735200;
+  //timestamp = 1648735200;
   var date = new Date(timestamp * 1000).toUTCString();
 
   return (
