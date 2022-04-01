@@ -134,9 +134,16 @@ const Home = () => {
   );
 
   let timestamp = useFetchGenesisStartTime();
+  let timestampEnd = timestamp.add(172800);
+
+  console.log(timestampEnd);
+
   //let timestamp = 1648735200;
   var countDownDate = new Date(timestamp * 1000);
+  var countDownEndDate = new Date(timestampEnd * 1000);
+
   let genesisStarted = Date.now() > (timestamp * 1000);
+  let genesisEnded = Date.now() > (timestampEnd * 1000);
 
   const buyTombAddress = 'https://spookyswap.finance/swap?inputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7&outputCurrency=' + tombFinance.DANTE.address;
   const buyTShareAddress = 'https://spookyswap.finance/swap?inputCurrency=FTM&outputCurrency=' + tombFinance.TSHARE.address;
@@ -175,6 +182,11 @@ const Home = () => {
           {!genesisStarted ? (
           <Paper style={{marginTop: '15px'}} className='danteCard'>
             <Box p={3}>{!genesisStarted ? (<LaunchCountdown deadline={countDownDate}></LaunchCountdown>) : <></>}</Box>
+          </Paper>) : <></>}
+
+          {genesisStarted ? (
+          <Paper style={{marginTop: '15px'}} className='danteCard'>
+            <Box p={3}>{!genesisEnded ? (<LaunchCountdown deadline={countDownEndDate}></LaunchCountdown>) : <></>}</Box>
           </Paper>) : <></>}
         </Grid>
 
@@ -237,6 +249,46 @@ const Home = () => {
             </CardContent>
           </Card>
         </Grid>
+
+{/*
+        <Grid item xs={12} sm={3}>
+          <Card className='danteCard'>
+            <CardContent align="center" style={{ position: 'relative' }}>
+              <h4>1 Tomb</h4>
+              <Button
+                onClick={() => {
+                  tombFinance.watchAssetInMetamask('TOMB');
+                }}
+                color="primary"
+                variant="outlined"
+                style={{ position: 'absolute', top: '10px', right: '10px' }}
+              >
+                +&nbsp;
+                <img alt="metamask fox" style={{ width: '20px' }} src={MetamaskFox} />
+              </Button>
+              <Box mt={2}>
+                <TokenSymbol symbol="TOMB" />
+              </Box>
+              <Box mt={0}>
+                <span style={{ fontSize: '40px' }}>=</span>
+              </Box>
+              <Box mt={0}>
+                <span style={{ fontSize: '24px' }}>{tombPriceInFTM ? tombPriceInFTM : '-.--'} Tomb</span>
+              </Box>
+              <Box>
+                <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
+                  ${tombPriceInDollars ? tombPriceInDollars : '-.--'}
+                </span>
+              </Box>
+              <span style={{ fontSize: '12px' }}>
+                Market Cap: ${(tombCirculatingSupply * tombPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {tombCirculatingSupply} <br />
+                Total Supply: {tombTotalSupply}
+              </span>
+            </CardContent>
+          </Card>
+        </Grid>
+              */}
 
         {/* TOMB */}
         <Grid item xs={12} sm={4}>
