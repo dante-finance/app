@@ -10,7 +10,7 @@ const useZap = () => {
   const handleZap = useCallback(
     (zappingToken: string, tokenName: string, amount: string, minAmount: string) => { 
       
-      const zapperName = zappingToken === 'TOMB' ? 'TombZapper' : 'WFtmZapper';
+      const zapperName = zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper';
       const contract = tombFinance.contracts[zapperName];
 
       handleTransactionReceipt(tombFinance.zapIn(zappingToken, tokenName, amount, minAmount, contract), `Zap ${amount}`);

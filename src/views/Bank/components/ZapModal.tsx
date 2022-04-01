@@ -22,7 +22,7 @@ import { Alert } from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
   onConfirm: (zapAsset: string, lpName: string, amount: string, minAmount: string) => void;
-  zapToken?: string;
+  //zapToken?: string;
   tokenName?: string;
   decimals?: number;
 }
@@ -31,31 +31,38 @@ const ZapModal: React.FC<ZapProps> = (
   { 
     onConfirm, 
     onDismiss, 
-    zapToken = '',
+    //zapToken = '',
     tokenName = '', 
     decimals = 18 
   }) => {
 
   const tombFinance = useTombFinance();
 
-  const zapperName = zapToken === 'TOMB' ? 'TombZapper' : 'WFtmZapper';
-  const contract = tombFinance.contracts[zapperName];
-  
   const wftmBalance = useTokenBalance(tombFinance.FTM);
   const displayWFtmBalance = useMemo(() => getDisplayBalance(wftmBalance), [wftmBalance]);
 
   const tombBalance = useTokenBalance(tombFinance.TOMB);
   const displayTombBalance = useMemo(() => getDisplayBalance(tombBalance), [tombBalance]);
 
+  const danteBalance = useTokenBalance(tombFinance.DANTE);
+  const displayDanteBalance = useMemo(() => getDisplayBalance(danteBalance), [danteBalance]);
+
+  //const defaultZappingTokenBalance = defaultZappingToken === 'TOMB' ? displayTombBalance : displayWFtmBalance;
+
   const [val, setVal] = useState('');
   
   const [slippage, setSlippage] = useState('1');
 
-  const zappingTokenBalance = zapToken === 'TOMB' ? displayTombBalance : displayWFtmBalance;
+  // if zapping in DANTE-TOMB use default zap token TOMB, else WFTM
+  const [zappingToken, setZappingToken] = useState(tokenName.startsWith('DANTE') ? 'TOMB' : 'WFTM');
+
+  console.log (displayTombBalance);
+  //const zappingTokenBalance = zapToken === 'TOMB' ? displayTombBalance : displayWFtmBalance;
+  const [zappingTokenBalance, setZappingTokenBalance] = useState(displayTombBalance);
 
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' });
   
-  const [approveZapperStatus, approveZapper] = useApproveZapper(zapToken);
+  const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
 
   const tombFtmLpStats = useLpStats('DANTE-TOMB-LP');
   const tShareFtmLpStats = useLpStats('GRAIL-FTM-LP');
@@ -73,6 +80,31 @@ const ZapModal: React.FC<ZapProps> = (
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
 
+  const handleChangeAsset = (event: any) => {
+    const value = event.target.value;
+    setZappingToken(value);
+
+    if (value === 'TOMB') {
+      setZappingTokenBalance(displayTombBalance);
+      setVal('0');
+      setEstimate({token0: '0', token1: '0'})
+      return;
+    }
+    if (value === 'WFTM') {
+      setZappingTokenBalance(displayWFtmBalance);
+      setVal('0');
+      setEstimate({token0: '0', token1: '0'})
+      return;
+    }
+    if (value === 'DANTE') {
+      setZappingTokenBalance(displayDanteBalance);
+      setVal('0');
+      setEstimate({token0: '0', token1: '0'})
+      return;
+    }
+  };
+
+
   const handleChange = async (e: any) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
       setVal(e.currentTarget.value);
@@ -82,7 +114,10 @@ const ZapModal: React.FC<ZapProps> = (
     if (!isNumeric(e.currentTarget.value)) return;
 
     setVal(e.currentTarget.value);
-    const estimateZap = await tombFinance.estimateZapIn(zapToken, tokenName, String(e.currentTarget.value), contract);
+
+    const contract = tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
+
+    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, String(e.currentTarget.value), contract);
     setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
@@ -98,14 +133,19 @@ const ZapModal: React.FC<ZapProps> = (
 
     if(val === '') return;
 
-    const estimateZap = await tombFinance.estimateZapIn(zapToken, tokenName, val, contract);
+    const contract = tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
+
+    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, val, contract);
 
     setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
   const handleSelectMax = async () => {
     setVal(zappingTokenBalance);
-    const estimateZap = await tombFinance.estimateZapIn(zapToken, tokenName, zappingTokenBalance, contract);
+
+    const contract = tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
+
+    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, zappingTokenBalance, contract);
     setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
@@ -113,16 +153,60 @@ const ZapModal: React.FC<ZapProps> = (
     return (Number(estimate.token0) / Number(ftmAmountPerLP) - (Number(estimate.token0) / Number(ftmAmountPerLP) / 100) * Number(slippage));
   };
 
+  useEffect( () => {
+    if (zappingToken === 'TOMB') {
+      setZappingTokenBalance(displayTombBalance);
+    }
+    if (zappingToken === 'WFTM') {
+      setZappingTokenBalance(displayWFtmBalance);
+    }
+    if (zappingToken === 'DANTE') {
+      setZappingTokenBalance(displayDanteBalance);
+    }
+  }, [zappingToken, tombBalance, wftmBalance, danteBalance]);
+
   return (
     <Modal>
-      <h2 style={{textAlign: 'center'}}>Zap in {zapToken === 'TOMB' ? 'Dante/Tomb' : 'Grail/Ftm'}</h2>
+      <h2 style={{textAlign: 'center'}}>Zap in {tokenName.startsWith('DANTE') ? 'Dante/Tomb' : 'Grail/Ftm'}</h2>
+
+      <StyledActionSpacer />
+
+      <span>Select token</span>
+
+      
+      {tokenName.startsWith('DANTE') ? 
+      <>
+        <Select
+          onChange={handleChangeAsset}
+          style={{ color: '#2c2560' }}
+          labelId="label"
+          id="select"
+          value={zappingToken}
+        >
+          <StyledMenuItem value={"TOMB"}>TOMB</StyledMenuItem>
+          <StyledMenuItem value={"DANTE"}>DANTE</StyledMenuItem>
+        </Select>
+      </> : 
+      <>
+        <Select
+          onChange={handleChangeAsset}
+          style={{ color: '#2c2560' }}
+          labelId="label"
+          id="select"
+          value={zappingToken}
+        >
+          <StyledMenuItem value={"WFTM"}>WFTM</StyledMenuItem>
+        </Select>
+      </>}
+
+
 
       <TokenInput
         onSelectMax={handleSelectMax}
         onChange={handleChange}
         value={val}
         max={zappingTokenBalance}
-        symbol={zapToken}
+        symbol={zappingToken}
       />
 
       <span>Slippage %</span>
@@ -147,7 +231,7 @@ const ZapModal: React.FC<ZapProps> = (
               <Button
                 color="default"
                 variant="contained"
-                onClick={() => { onConfirm(zapToken, tokenName, val, calcTokenMinAmount().toString())}}>Zap</Button>
+                onClick={() => { onConfirm(zappingToken, tokenName, val, calcTokenMinAmount().toString())}}>Zap</Button>
             )
           } else {
             return (<Button color="default" variant="contained" onClick={() => { approveZapper() }}>Approve</Button>)
@@ -166,5 +250,19 @@ const StyledActionSpacer = styled.div`
   height: ${(props) => props.theme.spacing[4]}px;
   width: ${(props) => props.theme.spacing[4]}px;
 `;
+
+const StyledMenuItem = withStyles({
+  root: {
+    backgroundColor: 'white',
+    color: '#2c2560',
+    '&:hover': {
+      backgroundColor: 'grey !important',
+      color: '#2c2560',
+    },
+    selected: {
+      backgroundColor: 'black',
+    },
+  },
+})(MenuItem);
 
 export default ZapModal;
