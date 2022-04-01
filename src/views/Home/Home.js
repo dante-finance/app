@@ -115,7 +115,7 @@ const Home = () => {
         tombLpZap.onZap(zappingToken, tokenName, amount, minAmount);
         onDissmissTombZap();
       }}
-      zapToken='TOMB'
+      
       tokenName={'DANTE-TOMB-LP'}
     />,
   );
@@ -128,7 +128,7 @@ const Home = () => {
         tshareLpZap.onZap(zappingToken, tokenName, amount, minAmount);
         onDissmissTshareZap();
       }}
-      zapToken='WFTM'
+      
       tokenName={'GRAIL-FTM-LP'}
     />,
   );

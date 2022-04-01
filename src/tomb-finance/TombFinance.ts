@@ -829,10 +829,20 @@ export class TombFinance {
   }
 
   async estimateZapIn(tokenName: string, lpName: string, amount: string, router: Contract): Promise<number[]> {
-    //const { TombZapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
     
-    let estimate = await router.estimateZapIn (
+    let token: ERC20;
+
+    if (tokenName === 'TOMB') {
+      token = this.TOMB;
+    } else if (tokenName === 'DANTE') {
+      token = this.DANTE;
+    } else if (tokenName === 'WFTM') {
+      token = this.FTM;
+    }
+
+    let estimate = await router.estimateZapInToken (
+      token.address,
       lpToken.address,
       SPOOKY_ROUTER_ADDR,
       parseUnits(amount, 18)
@@ -842,15 +852,37 @@ export class TombFinance {
   }
 
   async zapIn(tokenName: string, lpName: string, amount: string, minAmount: string, router: Contract): Promise<TransactionResponse> {
-    //const { TombZapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
 
-    return await router.nativeZapIn(
-      parseUnits(amount, 18),
-      lpToken.address,
-      SPOOKY_ROUTER_ADDR,
-      this.myAccount,
-      parseUnits(minAmount, 18)
-    );
+    let token: ERC20;
+
+    if  (tokenName === 'TOMB') {
+      token = this.TOMB;
+    } else if (tokenName === 'WFTM') {
+      token = this.FTM;
+    } else if (tokenName === 'DANTE') {
+      token = this.DANTE;
+    }
+
+    console.error (token.address);
+
+    if (token === this.TOMB || token === this.FTM) {
+      return await router.nativeZapIn(
+        parseUnits(amount, 18),
+        lpToken.address,
+        SPOOKY_ROUTER_ADDR,
+        this.myAccount,
+        parseUnits(minAmount, 18)
+      );
+    } else {
+      return await router.zapInToken(
+        token.address,
+        parseUnits(amount, 18),
+        lpToken.address,
+        SPOOKY_ROUTER_ADDR,
+        this.myAccount,
+        parseUnits(minAmount, 18),
+      );
+    }
   }
 }
