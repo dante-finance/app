@@ -28,8 +28,11 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
   if (zappingToken === 'WFTM') token = tombFinance.FTM;
   else if (zappingToken === 'TOMB') token = tombFinance.TOMB;
   else if (zappingToken === 'DANTE') token = tombFinance.DANTE;
+  else if (zappingToken === 'GRAIL') token = tombFinance.TSHARE;
 
-  const router: string = token === tombFinance.TOMB || token === tombFinance.DANTE ? TOMB_ZAPPER_ROUTER_ADDR : WFTM_ZAPPER_ROUTER_ADDR;
+  const router: string = token === tombFinance.TOMB || token === tombFinance.DANTE ? 
+    TOMB_ZAPPER_ROUTER_ADDR : 
+    WFTM_ZAPPER_ROUTER_ADDR;
 
   const [pending, setPending] = useState(false);
   const [currentAllowance, setAllowance] = useState<BigNumber>(null);

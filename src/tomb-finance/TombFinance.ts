@@ -839,6 +839,8 @@ export class TombFinance {
       token = this.DANTE;
     } else if (tokenName === 'WFTM') {
       token = this.FTM;
+    } else if (tokenName === 'GRAIL') {
+      token = this.TSHARE;
     }
 
     let estimate = await router.estimateZapInToken (
@@ -862,6 +864,8 @@ export class TombFinance {
       token = this.FTM;
     } else if (tokenName === 'DANTE') {
       token = this.DANTE;
+    } else if (tokenName === 'GRAIL') {
+      token = this.TSHARE;
     }
 
     console.error (token.address);

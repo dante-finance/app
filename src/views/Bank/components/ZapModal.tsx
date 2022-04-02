@@ -47,7 +47,8 @@ const ZapModal: React.FC<ZapProps> = (
   const danteBalance = useTokenBalance(tombFinance.DANTE);
   const displayDanteBalance = useMemo(() => getDisplayBalance(danteBalance), [danteBalance]);
 
-  //const defaultZappingTokenBalance = defaultZappingToken === 'TOMB' ? displayTombBalance : displayWFtmBalance;
+  const grailBalance = useTokenBalance(tombFinance.TSHARE);
+  const displayGrailBalance = useMemo(() => getDisplayBalance(grailBalance), [grailBalance]);
 
   const [val, setVal] = useState('');
   
@@ -56,8 +57,6 @@ const ZapModal: React.FC<ZapProps> = (
   // if zapping in DANTE-TOMB use default zap token TOMB, else WFTM
   const [zappingToken, setZappingToken] = useState(tokenName.startsWith('DANTE') ? 'TOMB' : 'WFTM');
 
-  console.log (displayTombBalance);
-  //const zappingTokenBalance = zapToken === 'TOMB' ? displayTombBalance : displayWFtmBalance;
   const [zappingTokenBalance, setZappingTokenBalance] = useState(displayTombBalance);
 
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' });
@@ -98,6 +97,12 @@ const ZapModal: React.FC<ZapProps> = (
     }
     if (value === 'DANTE') {
       setZappingTokenBalance(displayDanteBalance);
+      setVal('0');
+      setEstimate({token0: '0', token1: '0'})
+      return;
+    }
+    if (value === 'GRAIL') {
+      setZappingTokenBalance(displayGrailBalance);
       setVal('0');
       setEstimate({token0: '0', token1: '0'})
       return;
@@ -163,7 +168,10 @@ const ZapModal: React.FC<ZapProps> = (
     if (zappingToken === 'DANTE') {
       setZappingTokenBalance(displayDanteBalance);
     }
-  }, [zappingToken, tombBalance, wftmBalance, danteBalance]);
+    if (zappingToken === 'GRAIL') {
+      setZappingTokenBalance(displayGrailBalance);
+    }
+  }, [zappingToken, tombBalance, wftmBalance, danteBalance, grailBalance]);
 
   return (
     <Modal>
@@ -196,6 +204,7 @@ const ZapModal: React.FC<ZapProps> = (
           value={zappingToken}
         >
           <StyledMenuItem value={"WFTM"}>WFTM</StyledMenuItem>
+          <StyledMenuItem value={"GRAIL"}>GRAIL</StyledMenuItem>
         </Select>
       </>}
 
