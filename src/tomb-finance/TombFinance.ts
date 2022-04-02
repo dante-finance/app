@@ -868,8 +868,6 @@ export class TombFinance {
       token = this.TSHARE;
     }
 
-    console.error (token.address);
-
     if (token === this.TOMB || token === this.FTM) {
       return await router.nativeZapIn(
         parseUnits(amount, 18),

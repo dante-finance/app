@@ -70,13 +70,14 @@ const Cemetery = () => {
                   <h4 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'#FFF', margin: '0px auto 0px auto' }}>Genesis Pools</h4>
                   
                   <Grid container style={{marginTop: '10px'}}>
-                    <Grid item md='2'></Grid>
-                    <Grid item md='8'>
-                      <Alert variant="filled" severity="warning">
+                    <Grid item md='3'></Grid>
+                    <Grid item md='6'>
+                      {/*<Alert variant="filled" severity="warning">
                         Pools starting at {genesisStartTimeDate} and will run for 2 days with a 0.8% deposit fee. Please refer to our documentation to understand our protocol's fee model.
-                      </Alert>
+                      </Alert>*/}
+                      <Alert variant="filled" severity="warning">Genesis pool ended. Please collect your rewards.</Alert>
                     </Grid>
-                    <Grid item md='2'></Grid>
+                    <Grid item md='3'></Grid>
                   </Grid>
                   
                   <Grid container spacing={3} style={{marginTop: '15px'}}>
