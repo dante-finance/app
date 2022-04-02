@@ -103,19 +103,17 @@ const Home = () => {
   );
   const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
 
-  const tombLpZap = useZap();
-  const tshareLpZap = useZap();
+  const tombLpZap = useZap('TombZapper');
+  const tshareLpZap = useZap('WFtmZapper');
 
   const [onPresentTombZap, onDissmissTombZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount, minAmount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        //console.log(minAmount);
         tombLpZap.onZap(zappingToken, tokenName, amount, minAmount);
         onDissmissTombZap();
       }}
-      
       tokenName={'DANTE-TOMB-LP'}
     />,
   );
@@ -128,7 +126,6 @@ const Home = () => {
         tshareLpZap.onZap(zappingToken, tokenName, amount, minAmount);
         onDissmissTshareZap();
       }}
-      
       tokenName={'GRAIL-FTM-LP'}
     />,
   );
@@ -136,9 +133,6 @@ const Home = () => {
   let timestamp = useFetchGenesisStartTime();
   let timestampEnd = timestamp.add(172800);
 
-  console.log(timestampEnd);
-
-  //let timestamp = 1648735200;
   var countDownDate = new Date(timestamp * 1000);
   var countDownEndDate = new Date(timestampEnd * 1000);
 
@@ -161,8 +155,7 @@ const Home = () => {
                 <b>The website is currently in test mode! DO NOT BUY OR SELL ANY TOKENS!</b>
             </Alert>
           </Grid>
-  </Grid>*/}
-
+        </Grid>*/}
         
         {/* Logo */}
         <Grid container item xs={12} sm={4} justify="center">
@@ -184,7 +177,7 @@ const Home = () => {
             <Box p={3}>{!genesisStarted ? (<LaunchCountdown deadline={countDownDate}></LaunchCountdown>) : <></>}</Box>
           </Paper>) : <></>}
 
-          {genesisStarted ? (
+          {genesisStarted && !genesisEnded? (
           <Paper style={{marginTop: '15px'}} className='danteCard'>
             <Box p={3}>{!genesisEnded ? (<LaunchCountdown deadline={countDownEndDate}></LaunchCountdown>) : <></>}</Box>
           </Paper>) : <></>}
@@ -290,7 +283,6 @@ const Home = () => {
         </Grid>
               */}
 
-        {/* TOMB */}
         <Grid item xs={12} sm={4}>
           <Card className='danteCard'>
             <CardContent align="center" style={{ position: 'relative' }}>
@@ -329,7 +321,6 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TSHARE */}
         <Grid item xs={12} sm={4}>
           <Card className='danteCard'>
             <CardContent align="center" style={{ position: 'relative' }}>
@@ -366,7 +357,6 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TBOND */}
         <Grid item xs={12} sm={4}>
           <Card className='danteCard'>
             <CardContent align="center" style={{ position: 'relative' }}>
