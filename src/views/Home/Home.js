@@ -167,8 +167,20 @@ const Home = () => {
           <Paper className='danteCard'>
             <Box p={3}>
               <h2>Welcome to Dante Finance</h2>
-              <p>Join Dante's epic journey from Inferno to Eden. Dante is a new token pegged to Tomb with future NFT utility.</p>
-              <p>Stake your Grail in Eden to earn inflationary Dante rewards or provide liquidity on pairs and start earning today!</p>
+              <p>We have big plans for Dante. After our successful genesis launch, we are now working to release our Dante Inferno style NFTs and a unique feature to single stake Dante tokens for fixed APR rewards. You can check our complete roadmap <a target='_blank' style={{color:'#FFF', textDecoration: 'underline'}} href='https://dantefinance.gitbook.io/dantefinance.com/roadmap'>here</a>.</p>
+            </Box>
+          </Paper>
+
+          <Paper className='danteCard' style={{marginTop: '20px'}}>
+            <Box p={3}>
+              <h3>Get started guide</h3>
+
+              <ul>
+                <li>Buy Dante <a style={{color: '#FFF', textDecoration: 'underline'}} href={buyTombAddress} target='_blank'>here</a>.</li>
+                <li><span className='zap-in-dante' onClick={onPresentTombZap}>Zap in</span> your Dante or Tomb tokens.</li>
+                <li>Deposit your LP tokens in the <a target='_blank' style={{color: '#FFF', textDecoration: 'underline'}} href='/purgatory/DanteTombLPGrailRewardPool'>Purgatory</a> or on the <a target='_blank' style={{color: '#FFF', textDecoration: 'underline'}} href='https://app.grim.finance/'>Grim Autocompounder</a>.</li>
+                <li>Stake your Grail rewards in the <a target='_blank'  style={{color: '#FFF', textDecoration: 'underline'}} href='/eden'>Eden</a> for more Dante rewards.</li>
+              </ul>
             </Box>
           </Paper>
 
