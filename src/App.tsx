@@ -22,6 +22,7 @@ const Cemetery = lazy(() => import('./views/Cemetery'));
 const Masonry = lazy(() => import('./views/Masonry'));
 const Pit = lazy(() => import('./views/Pit'));
 const Vaults = lazy(() => import('./views/Vaults/Vaults'));
+const Autocompounders = lazy(() => import('./views/Autocompounders/Autocompounders'));
 
 const NoMatch = () => (
   <h3 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -61,6 +62,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/vaults">
               <Vaults />
+            </Route>
+            <Route path="/autocompounders">
+              <Autocompounders />
             </Route>
             <Route path="*">
               <NoMatch />

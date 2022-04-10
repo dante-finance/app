@@ -52,7 +52,7 @@ const ZapModal: React.FC<ZapProps> = (
 
   const [val, setVal] = useState('');
   
-  const [slippage, setSlippage] = useState('1');
+  const [slippage, setSlippage] = useState('0.1');
 
   // if zapping in DANTE-TOMB use default zap token TOMB, else WFTM
   const [zappingToken, setZappingToken] = useState(tokenName.startsWith('DANTE') ? 'TOMB' : 'WFTM');

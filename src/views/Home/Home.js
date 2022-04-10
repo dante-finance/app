@@ -148,15 +148,6 @@ const Home = () => {
     <Page>
       <BackgroundImage />
       <Grid container spacing={3}>
-
-        {/*<Grid container spacing={3}>
-          <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
-            <Alert variant="filled" severity="warning">
-                <b>The website is currently in test mode! DO NOT BUY OR SELL ANY TOKENS!</b>
-            </Alert>
-          </Grid>
-        </Grid>*/}
-        
         {/* Logo */}
         <Grid container item xs={12} sm={4} justify="center">
           {/* <Paper>xs=6 sm=3</Paper> */}
@@ -178,7 +169,7 @@ const Home = () => {
               <ul>
                 <li>Buy Dante <a style={{color: '#FFF', textDecoration: 'underline'}} href={buyTombAddress} target='_blank'>here</a>.</li>
                 <li><span className='zap-in-dante' onClick={onPresentTombZap}>Zap in</span> your Dante or Tomb tokens.</li>
-                <li>Deposit your LP tokens in the <a target='_blank' style={{color: '#FFF', textDecoration: 'underline'}} href='/purgatory/DanteTombLPGrailRewardPool'>Purgatory</a> or on the <a target='_blank' style={{color: '#FFF', textDecoration: 'underline'}} href='https://app.grim.finance/'>Grim Autocompounder</a>.</li>
+                <li>Deposit your LP tokens in the <a target='_blank' style={{color: '#FFF', textDecoration: 'underline'}} href='/purgatory/DanteTombLPGrailRewardPool'>Purgatory</a> or in an <a target='_blank' style={{color: '#FFF', textDecoration: 'underline'}} href='/autocompounders'>auto-compounder</a>.</li>
                 <li>Stake your Grail rewards in the <a target='_blank'  style={{color: '#FFF', textDecoration: 'underline'}} href='/eden'>Eden</a> for more Dante rewards.</li>
               </ul>
             </Box>
