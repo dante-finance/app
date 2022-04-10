@@ -70,9 +70,19 @@ const Regulations = () => {
   return (
     <Page>
       <BackgroundImage />
-      <h2 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'rgb(244, 143, 78)', margin: '0px auto 0px auto' }}>Regulations</h2>
+      <h2
+        style={{
+          display: 'table',
+          padding: '10px',
+          backgroundColor: 'rgba(104, 76, 172, 0.9)',
+          color: 'rgb(244, 143, 78)',
+          margin: '0px auto 0px auto',
+        }}
+      >
+        Regulations
+      </h2>
 
-      <TableContainer style={{marginTop: '40px'}}>
+      <TableContainer style={{ marginTop: '40px' }}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>

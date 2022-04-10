@@ -19,9 +19,8 @@ const useAllowance = (token: ERC20, spender: string, pendingApproval?: boolean) 
   );
 
   const fetchAllowance = useCallback(async () => {
-
-    if(lastPending === true && pendingApproval === false) {
-      await new Promise(resolve => setTimeout(resolve, 5000));
+    if (lastPending === true && pendingApproval === false) {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     }
 
     const allowance = await token.allowance(account, spender);
@@ -30,9 +29,9 @@ const useAllowance = (token: ERC20, spender: string, pendingApproval?: boolean) 
 
     setLastPending(pendingApproval);
 
-    console.error ('pending', pendingApproval);
-    console.error ('last', lastPending);
-  }, [account, spender, token]);
+    console.error('pending', pendingApproval);
+    console.error('last', lastPending);
+  }, [account, lastPending, pendingApproval, spender, token]);
 
   useEffect(() => {
     if (account && spender && token) {

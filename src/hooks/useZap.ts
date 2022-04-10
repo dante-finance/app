@@ -8,9 +8,13 @@ const useZap = (router: string) => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleZap = useCallback(
-    (zappingToken: string, tokenName: string, amount: string, minAmount: string) => { 
-      handleTransactionReceipt(tombFinance.zapIn(zappingToken, tokenName, amount, minAmount, tombFinance.contracts[router]), `Zap ${amount}`);
-    }, [tombFinance, handleTransactionReceipt],
+    (zappingToken: string, tokenName: string, amount: string, minAmount: string) => {
+      handleTransactionReceipt(
+        tombFinance.zapIn(zappingToken, tokenName, amount, minAmount, tombFinance.contracts[router]),
+        `Zap ${amount}`,
+      );
+    },
+    [handleTransactionReceipt, tombFinance, router],
   );
   return { onZap: handleZap };
 };

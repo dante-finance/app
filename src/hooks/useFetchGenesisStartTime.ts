@@ -15,7 +15,7 @@ const useFetchGenesisStartTime = () => {
     if (tombFinance) {
       fetchTimestampAsync();
     }
-  }, [tombFinance]);
+  }, [fetchTimestampAsync, tombFinance]);
 
   return timestamp;
 };

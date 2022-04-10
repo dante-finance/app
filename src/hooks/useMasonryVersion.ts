@@ -9,13 +9,13 @@ const useMasonryVersion = () => {
 
   const updateState = useCallback(async () => {
     setMasonryVersion(await tombFinance.fetchMasonryVersionOfUser());
-  }, [tombFinance?.isUnlocked, stakedBalance]);
+  }, [tombFinance]);
 
   useEffect(() => {
     if (tombFinance?.isUnlocked) {
       updateState().catch((err) => console.error(err.stack));
     }
-  }, [tombFinance?.isUnlocked, stakedBalance]);
+  }, [stakedBalance, tombFinance, updateState]);
 
   return masonryVersion;
 };
