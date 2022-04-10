@@ -1,4 +1,5 @@
 {
-    "appService.deploySubpath": ".",
-    "appService.defaultWebAppToDeploy": "/subscriptions/21de8166-9d54-4766-b94e-2880d10c865c/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/dantefinance"
+  "editor.rulers": [80],
+  "appService.deploySubpath": ".",
+  "appService.defaultWebAppToDeploy": "/subscriptions/21de8166-9d54-4766-b94e-2880d10c865c/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/dantefinance"
 }
