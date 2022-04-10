@@ -20,7 +20,6 @@
     "@types/humanize-plus": "^1.8.0",
     "@types/jest": "^26.0.9",
     "@types/node": "^14.0.27",
-    "@types/react": "^16.9.46",
     "@types/react-redux": "^7.1.9",
     "@uniswap/sdk": "^3.0.3-beta.1",
     "bignumber.js": "^9.0.0",
@@ -47,6 +46,16 @@
     "use-wallet": "^0.8.1",
     "web3": "^1.2.11"
   },
+  "devDependencies": {
+    "@types/numeral": "0.0.28",
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.2",
+    "gh-pages": "^3.2.3",
+    "prettier": "2.3.1",
+    "react-error-overlay": "^6.0.9"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -69,15 +78,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/numeral": "0.0.28",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5",
-    "@types/styled-components": "^5.1.2",
-    "gh-pages": "^3.2.3",
-    "prettier": "2.3.1",
-    "react-error-overlay": "^6.0.9"
   },
   "resolutions": {
     "react-error-overlay": "6.0.9"
