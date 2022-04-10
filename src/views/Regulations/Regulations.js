@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 
 import Page from '../../components/Page';
 import RegulationsImage from '../../assets/img/home.png';
@@ -14,6 +14,7 @@ const BackgroundImage = createGlobalStyle`
     background-size: cover !important;
   }
 `;
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     fontSize: 18,
@@ -47,10 +48,12 @@ const Regulations = () => {
   const classes = useStyles();
   const tombFinance = useTombFinance();
   const [rows, setRows] = useState(null);
+
   function createData(epoch, dao, dev, masonry) {
     var sum = (Number(dao) + Number(dev) + Number(masonry)).toFixed(2);
     return { epoch, dao, dev, masonry, sum };
   }
+
   useEffect(() => {
     if (tombFinance) {
       const thisData = tombFinance.listenForRegulationsEvents();
@@ -68,7 +71,7 @@ const Regulations = () => {
     <Page>
       <BackgroundImage />
       <h2 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'rgb(244, 143, 78)', margin: '0px auto 0px auto' }}>Regulations</h2>
-      
+
       <TableContainer style={{marginTop: '40px'}}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
