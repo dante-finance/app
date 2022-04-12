@@ -5,9 +5,9 @@ import { Button, Card, CardContent } from '@material-ui/core';
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
-import CardIcon from '../../../components/CardIcon';
-import Label from '../../../components/Label';
-import Value from '../../../components/Value';
+// import CardIcon from '../../../components/CardIcon';
+// import Label from '../../../components/Label';
+// import Value from '../../../components/Value';
 
 import useEarnings from '../../../hooks/useEarnings';
 import useHarvest from '../../../hooks/useHarvest';
@@ -36,7 +36,7 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   );
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
   return (
-    <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
+    <Card style={{ backgroundColor: 'rgba(104, 76, 172, 0.9)' }}>
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
@@ -44,7 +44,6 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
             <span style={{ fontSize: '26px', marginTop: '10px' }}>{getDisplayBalance(earnings)}</span>
             <span style={{ fontSize: '16px' }}>{`${tokenName} Earned`}</span>
             <span style={{ fontSize: '14px' }}>{`≈ $${earnedInDollars}`}</span>
-            
           </StyledCardHeader>
           <StyledCardActions>
             <Button onClick={onReward} disabled={earnings.eq(0)} color="primary" variant="contained">

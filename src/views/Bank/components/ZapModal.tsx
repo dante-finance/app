@@ -1,24 +1,18 @@
 import React, { useState, useMemo, useEffect } from 'react';
 
-import { Button, Select, MenuItem, InputLabel, Typography, withStyles, TextField, CircularProgress } from '@material-ui/core';
-// import Button from '../../../components/Button'
+import { Button, Select, MenuItem, withStyles, CircularProgress } from '@material-ui/core';
 import Modal, { ModalProps } from '../../../components/Modal';
 import ModalActions from '../../../components/ModalActions';
-import ModalTitle from '../../../components/ModalTitle';
 import TokenInput from '../../../components/TokenInput';
 import SlippageInput from '../../../components/SlippageInput';
 import styled from 'styled-components';
 
 import { getDisplayBalance } from '../../../utils/formatBalance';
-import Label from '../../../components/Label';
 import useLpStats from '../../../hooks/useLpStats';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useTombFinance from '../../../hooks/useTombFinance';
-import { useWallet } from 'use-wallet';
 import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
-import { TOMB_TICKER, TSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
 import { Alert } from '@material-ui/lab';
-
 
 interface ZapProps extends ModalProps {
   onConfirm: (zapAsset: string, lpName: string, amount: string, minAmount: string) => void;
@@ -27,15 +21,13 @@ interface ZapProps extends ModalProps {
   decimals?: number;
 }
 
-const ZapModal: React.FC<ZapProps> = (
-  { 
-    onConfirm, 
-    onDismiss, 
-    //zapToken = '',
-    tokenName = '', 
-    decimals = 18 
-  }) => {
-
+const ZapModal: React.FC<ZapProps> = ({
+  onConfirm,
+  onDismiss,
+  //zapToken = '',
+  tokenName = '',
+  decimals = 18,
+}) => {
   const tombFinance = useTombFinance();
 
   const wftmBalance = useTokenBalance(tombFinance.FTM);
@@ -51,7 +43,7 @@ const ZapModal: React.FC<ZapProps> = (
   const displayGrailBalance = useMemo(() => getDisplayBalance(grailBalance), [grailBalance]);
 
   const [val, setVal] = useState('');
-  
+
   const [slippage, setSlippage] = useState('0.1');
 
   // if zapping in DANTE-TOMB use default zap token TOMB, else WFTM
@@ -60,16 +52,16 @@ const ZapModal: React.FC<ZapProps> = (
   const [zappingTokenBalance, setZappingTokenBalance] = useState(displayTombBalance);
 
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' });
-  
+
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
 
   const tombFtmLpStats = useLpStats('DANTE-TOMB-LP');
   const tShareFtmLpStats = useLpStats('GRAIL-FTM-LP');
-  
+
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
   const ftmAmountPerLP = tokenName.startsWith('DANTE') ? tombLPStats?.ftmAmount : tshareLPStats?.ftmAmount;
-  
+
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -86,29 +78,28 @@ const ZapModal: React.FC<ZapProps> = (
     if (value === 'TOMB') {
       setZappingTokenBalance(displayTombBalance);
       setVal('0');
-      setEstimate({token0: '0', token1: '0'})
+      setEstimate({ token0: '0', token1: '0' });
       return;
     }
     if (value === 'WFTM') {
       setZappingTokenBalance(displayWFtmBalance);
       setVal('0');
-      setEstimate({token0: '0', token1: '0'})
+      setEstimate({ token0: '0', token1: '0' });
       return;
     }
     if (value === 'DANTE') {
       setZappingTokenBalance(displayDanteBalance);
       setVal('0');
-      setEstimate({token0: '0', token1: '0'})
+      setEstimate({ token0: '0', token1: '0' });
       return;
     }
     if (value === 'GRAIL') {
       setZappingTokenBalance(displayGrailBalance);
       setVal('0');
-      setEstimate({token0: '0', token1: '0'})
+      setEstimate({ token0: '0', token1: '0' });
       return;
     }
   };
-
 
   const handleChange = async (e: any) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
@@ -120,9 +111,15 @@ const ZapModal: React.FC<ZapProps> = (
 
     setVal(e.currentTarget.value);
 
-    const contract = tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
+    const contract =
+      tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
 
-    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, String(e.currentTarget.value), contract);
+    const estimateZap = await tombFinance.estimateZapIn(
+      zappingToken,
+      tokenName,
+      String(e.currentTarget.value),
+      contract,
+    );
     setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
@@ -133,12 +130,13 @@ const ZapModal: React.FC<ZapProps> = (
     }
 
     if (!isNumeric(e.currentTarget.value)) return;
-    
+
     setSlippage(e.currentTarget.value);
 
-    if(val === '') return;
+    if (val === '') return;
 
-    const contract = tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
+    const contract =
+      tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
 
     const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, val, contract);
 
@@ -148,17 +146,21 @@ const ZapModal: React.FC<ZapProps> = (
   const handleSelectMax = async () => {
     setVal(zappingTokenBalance);
 
-    const contract = tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
+    const contract =
+      tombFinance.contracts[zappingToken === 'TOMB' || zappingToken === 'DANTE' ? 'TombZapper' : 'WFtmZapper'];
 
     const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, zappingTokenBalance, contract);
     setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
   const calcTokenMinAmount = () => {
-    return (Number(estimate.token0) / Number(ftmAmountPerLP) - (Number(estimate.token0) / Number(ftmAmountPerLP) / 100) * Number(slippage));
+    return (
+      Number(estimate.token0) / Number(ftmAmountPerLP) -
+      (Number(estimate.token0) / Number(ftmAmountPerLP) / 100) * Number(slippage)
+    );
   };
 
-  useEffect( () => {
+  useEffect(() => {
     if (zappingToken === 'TOMB') {
       setZappingTokenBalance(displayTombBalance);
     }
@@ -171,44 +173,53 @@ const ZapModal: React.FC<ZapProps> = (
     if (zappingToken === 'GRAIL') {
       setZappingTokenBalance(displayGrailBalance);
     }
-  }, [zappingToken, tombBalance, wftmBalance, danteBalance, grailBalance]);
+  }, [
+    zappingToken,
+    tombBalance,
+    wftmBalance,
+    danteBalance,
+    grailBalance,
+    displayTombBalance,
+    displayWFtmBalance,
+    displayDanteBalance,
+    displayGrailBalance,
+  ]);
 
   return (
     <Modal>
-      <h2 style={{textAlign: 'center'}}>Zap in {tokenName.startsWith('DANTE') ? 'Dante/Tomb' : 'Grail/Ftm'}</h2>
+      <h2 style={{ textAlign: 'center' }}>Zap in {tokenName.startsWith('DANTE') ? 'Dante/Tomb' : 'Grail/Ftm'}</h2>
 
       <StyledActionSpacer />
 
       <span>Select token</span>
 
-      
-      {tokenName.startsWith('DANTE') ? 
-      <>
-        <Select
-          onChange={handleChangeAsset}
-          style={{ color: '#2c2560' }}
-          labelId="label"
-          id="select"
-          value={zappingToken}
-        >
-          <StyledMenuItem value={"TOMB"}>TOMB</StyledMenuItem>
-          <StyledMenuItem value={"DANTE"}>DANTE</StyledMenuItem>
-        </Select>
-      </> : 
-      <>
-        <Select
-          onChange={handleChangeAsset}
-          style={{ color: '#2c2560' }}
-          labelId="label"
-          id="select"
-          value={zappingToken}
-        >
-          <StyledMenuItem value={"WFTM"}>WFTM</StyledMenuItem>
-          <StyledMenuItem value={"GRAIL"}>GRAIL</StyledMenuItem>
-        </Select>
-      </>}
-
-
+      {tokenName.startsWith('DANTE') ? (
+        <>
+          <Select
+            onChange={handleChangeAsset}
+            style={{ color: '#2c2560' }}
+            labelId="label"
+            id="select"
+            value={zappingToken}
+          >
+            <StyledMenuItem value={'TOMB'}>TOMB</StyledMenuItem>
+            <StyledMenuItem value={'DANTE'}>DANTE</StyledMenuItem>
+          </Select>
+        </>
+      ) : (
+        <>
+          <Select
+            onChange={handleChangeAsset}
+            style={{ color: '#2c2560' }}
+            labelId="label"
+            id="select"
+            value={zappingToken}
+          >
+            <StyledMenuItem value={'WFTM'}>WFTM</StyledMenuItem>
+            <StyledMenuItem value={'GRAIL'}>GRAIL</StyledMenuItem>
+          </Select>
+        </>
+      )}
 
       <TokenInput
         onSelectMax={handleSelectMax}
@@ -220,37 +231,53 @@ const ZapModal: React.FC<ZapProps> = (
 
       <span>Slippage %</span>
 
-      <SlippageInput
-        onChange={handleSlippageChange}
-        value={slippage}
-      />
-      
+      <SlippageInput onChange={handleSlippageChange} value={slippage} />
+
       <span>Zap estimations:</span>
-      <span>{tokenName}: ~{calcTokenMinAmount().toFixed(4)}</span>
-      <span>({Number(estimate.token0)} / {Number(estimate.token1)})</span>
-      
+      <span>
+        {tokenName}: ~{calcTokenMinAmount().toFixed(4)}
+      </span>
+      <span>
+        ({Number(estimate.token0)} / {Number(estimate.token1)})
+      </span>
+
       <ModalActions>
-      {
-        approveZapperStatus &&
-        (() => {
-          if (approveZapperStatus === ApprovalState.PENDING) {
-            return <CircularProgress/>
-          } else if (approveZapperStatus === ApprovalState.APPROVED) {
-            return (
-              <Button
-                color="default"
-                variant="contained"
-                onClick={() => { onConfirm(zappingToken, tokenName, val, calcTokenMinAmount().toString())}}>Zap</Button>
-            )
-          } else {
-            return (<Button color="default" variant="contained" onClick={() => { approveZapper() }}>Approve</Button>)
-          }
-        })()
-      }
+        {approveZapperStatus &&
+          (() => {
+            if (approveZapperStatus === ApprovalState.PENDING) {
+              return <CircularProgress />;
+            } else if (approveZapperStatus === ApprovalState.APPROVED) {
+              return (
+                <Button
+                  color="default"
+                  variant="contained"
+                  onClick={() => {
+                    onConfirm(zappingToken, tokenName, val, calcTokenMinAmount().toString());
+                  }}
+                >
+                  Zap
+                </Button>
+              );
+            } else {
+              return (
+                <Button
+                  color="default"
+                  variant="contained"
+                  onClick={() => {
+                    approveZapper();
+                  }}
+                >
+                  Approve
+                </Button>
+              );
+            }
+          })()}
       </ModalActions>
 
       <StyledActionSpacer />
-      <Alert variant="filled" severity="warning">Experimental feature. Use at your own risk!</Alert>
+      <Alert variant="filled" severity="warning">
+        Experimental feature. Use at your own risk!
+      </Alert>
     </Modal>
   );
 };

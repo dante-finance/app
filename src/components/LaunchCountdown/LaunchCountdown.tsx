@@ -1,6 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-import config from '../../config';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 
 interface LaunchCountdownProps {
@@ -14,12 +12,17 @@ const LaunchCountdown: React.FC<LaunchCountdownProps> = ({ deadline }) => {
     const m = String(minutes);
     const s = String(seconds);
 
-    return <><span style={{color: 'rgb(244, 143, 78)', fontSize:'24px'}}>Genesis Ends In</span><span style={{fontSize:'24px'}}>: {h} Hours {m} Minutes {s} Seconds</span></>;
+    return (
+      <>
+        <span style={{ color: 'rgb(244, 143, 78)', fontSize: '24px' }}>Genesis Ends In</span>
+        <span style={{ fontSize: '24px' }}>
+          : {h} Hours {m} Minutes {s} Seconds
+        </span>
+      </>
+    );
   };
 
-  return (
-    <Countdown date={deadline} renderer={countdownRenderer} />
-  );
+  return <Countdown date={deadline} renderer={countdownRenderer} />;
 };
 
 export default LaunchCountdown;

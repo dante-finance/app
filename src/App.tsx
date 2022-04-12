@@ -16,6 +16,7 @@ import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
 import Regulations from './views/Regulations/Regulations';
+import { App404 } from './components/App/App404';
 
 const Home = lazy(() => import('./views/Home'));
 const Cemetery = lazy(() => import('./views/Cemetery'));
@@ -23,12 +24,6 @@ const Masonry = lazy(() => import('./views/Masonry'));
 const Pit = lazy(() => import('./views/Pit'));
 const Vaults = lazy(() => import('./views/Vaults/Vaults'));
 const Autocompounders = lazy(() => import('./views/Autocompounders/Autocompounders'));
-
-const NoMatch = () => (
-  <h3 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-    URL Not Found. <a href="/">Go back home.</a>
-  </h3>
-);
 
 const App: React.FC = () => {
   // Clear localStorage for mobile users
@@ -67,7 +62,7 @@ const App: React.FC = () => {
               <Autocompounders />
             </Route>
             <Route path="*">
-              <NoMatch />
+              <App404 />
             </Route>
           </Switch>
         </Suspense>

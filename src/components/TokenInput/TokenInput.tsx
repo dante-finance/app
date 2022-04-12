@@ -13,12 +13,18 @@ interface TokenInputProps extends InputProps {
 const TokenInput: React.FC<TokenInputProps> = ({ max, symbol, onChange, onSelectMax, value }) => {
   return (
     <StyledTokenInput>
-      <span style={{display: 'flex', justifyContent: 'flex-end', fontSize: '14px', color:'gray' }}>{max.toLocaleString()} {symbol} Available</span>
+      <span style={{ display: 'flex', justifyContent: 'flex-end', fontSize: '14px', color: 'gray' }}>
+        {max.toLocaleString()} {symbol} Available
+      </span>
       <Input
         endAdornment={
           <StyledTokenAdornmentWrapper>
             <StyledSpacer />
-            <div><Button size="small" color="primary" variant="contained" onClick={onSelectMax}>Max</Button></div>
+            <div>
+              <Button size="small" color="primary" variant="contained" onClick={onSelectMax}>
+                Max
+              </Button>
+            </div>
           </StyledTokenAdornmentWrapper>
         }
         onChange={onChange}
@@ -46,14 +52,14 @@ const StyledTokenAdornmentWrapper = styled.div`
   display: flex;
 `;
 
-const StyledMaxText = styled.div`
-  align-items: center;
-  color: ${(props) => props.theme.color.grey[400]};
-  display: flex;
-  font-size: 14px;
-  font-weight: 700;
-  height: 44px;
-  justify-content: flex-end;
-`;
+// const StyledMaxText = styled.div`
+//   align-items: center;
+//   color: ${(props) => props.theme.color.grey[400]};
+//   display: flex;
+//   font-size: 14px;
+//   font-weight: 700;
+//   height: 44px;
+//   justify-content: flex-end;
+// `;
 
 export default TokenInput;

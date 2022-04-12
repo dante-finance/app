@@ -1,8 +1,7 @@
 import { BigNumber, ethers } from 'ethers';
 import { useWallet } from 'use-wallet';
 import { useCallback, useMemo, useState, useEffect } from 'react';
-import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
-import useAllowance from './useAllowance';
+import { useTransactionAdder } from '../state/transactions/hooks';
 import ERC20 from '../tomb-finance/ERC20';
 import { TOMB_ZAPPER_ROUTER_ADDR, WFTM_ZAPPER_ROUTER_ADDR } from '../utils/constants';
 import useTombFinance from './useTombFinance';
@@ -30,14 +29,14 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
   else if (zappingToken === 'DANTE') token = tombFinance.DANTE;
   else if (zappingToken === 'GRAIL') token = tombFinance.TSHARE;
 
-  const router: string = token === tombFinance.TOMB || token === tombFinance.DANTE ? 
-    TOMB_ZAPPER_ROUTER_ADDR : 
-    WFTM_ZAPPER_ROUTER_ADDR;
+  const router: string =
+    token === tombFinance.TOMB || token === tombFinance.DANTE ? TOMB_ZAPPER_ROUTER_ADDR : WFTM_ZAPPER_ROUTER_ADDR;
 
   const [pending, setPending] = useState(false);
   const [currentAllowance, setAllowance] = useState<BigNumber>(null);
 
-  useInterval(() => {
+  useInterval(
+    () => {
       fetchAllowance().catch((err) => console.log(`Failed to fetch allowance: ${err.stack}`));
     },
     // Delay in milliseconds or null to stop it
@@ -47,7 +46,7 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
   const fetchAllowance = useCallback(async () => {
     const allowance = await token.allowance(account, router);
     setAllowance(allowance);
-  }, [account, token]);
+  }, [account, router, token]);
 
   useEffect(() => {
     if (account && token) {
@@ -55,17 +54,20 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
     }
   }, [account, token, fetchAllowance]);
 
-
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
-    if(pending === true && currentAllowance.gt(0)) {
+    if (pending === true && currentAllowance.gt(0)) {
       setPending(false);
     }
 
-    return currentAllowance.lt(APPROVE_BASE_AMOUNT) ? pending ? ApprovalState.PENDING : ApprovalState.NOT_APPROVED : ApprovalState.APPROVED;
-  }, [currentAllowance, pending, token, tombFinance]);
+    return currentAllowance.lt(APPROVE_BASE_AMOUNT)
+      ? pending
+        ? ApprovalState.PENDING
+        : ApprovalState.NOT_APPROVED
+      : ApprovalState.APPROVED;
+  }, [currentAllowance, pending]);
 
   const addTransaction = useTransactionAdder();
 
@@ -76,7 +78,7 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
     }
 
     const response = await token.approve(router, APPROVE_AMOUNT);
-    
+
     setPending(true);
 
     addTransaction(response, {
@@ -86,7 +88,7 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
         spender: router,
       },
     });
-  }, [approvalState, token, addTransaction]);
+  }, [approvalState, token, router, addTransaction]);
 
   return [approvalState, approve];
 }

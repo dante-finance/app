@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ac32/spookyswap-sdk": "1.0.0",
     "@ethersproject/providers": "^5.0.9",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
@@ -13,7 +14,6 @@
     "@pancakeswap-libs/sdk": "^1.0.1",
     "@pancakeswap/sdk": "^2.3.1",
     "@reduxjs/toolkit": "^1.4.0",
-    "@ac32/spookyswap-sdk": "1.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -52,6 +52,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
+    "eslint-plugin-prettier": "^3.1.2",
     "gh-pages": "^3.2.3",
     "prettier": "2.3.1",
     "react-error-overlay": "^6.0.9"
@@ -62,10 +63,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "deploy": "gh-pages -d build",
+    "lint": "eslint ./src/**/*.js ./src/**/*.ts ./src/**/*.tsx",
+    "lint:fix": "npm run lint -- --fix"
   },
   "browserslist": {
     "production": [
