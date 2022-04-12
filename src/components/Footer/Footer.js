@@ -4,7 +4,6 @@ import { Container, Grid, Typography, Link } from '@material-ui/core';
 import TwitterImage from '../../assets/img/twitter.svg';
 import TelegramImage from '../../assets/img/telegram.svg';
 import DiscordImage from '../../assets/img/discord.svg';
-import YoutubeImage from '../../assets/img/youtube.svg';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -55,7 +54,9 @@ const Footer = () => {
               rel="noopener noreferrer"
               target="_blank"
               className={classes.link}
-            ><img alt="twitter" src={TwitterImage} className={classes.img} /></a>
+            >
+              <img alt="twitter" src={TwitterImage} className={classes.img} />
+            </a>
             <a href="https://discord.gg/RYybVg3Hjh" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img alt="discord" src={DiscordImage} className={classes.img} />
             </a>

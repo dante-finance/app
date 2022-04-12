@@ -7,13 +7,13 @@ import tombLogoPNG from '../../assets/img/crypto_tomb_cash.f2b44ef4.png';
 import tShareLogoPNG from '../../assets/img/crypto_tomb_share.bf1a6c52.png';
 import tBondLogo from '../../assets/img/crypto_tomb_bond.svg';
 
-import tombFtmLpLogo from '../../assets/img/tomb_ftm_lp.png';
-import tshareFtmLpLogo from '../../assets/img/tshare_ftm_lp.png';
+// import tombFtmLpLogo from '../../assets/img/tomb_ftm_lp.png';
+// import tshareFtmLpLogo from '../../assets/img/tshare_ftm_lp.png';
 
 import wftmLogo from '../../assets/img/fantom.png';
 import usdcLogo from '../../assets/img/USDC.png';
-import zooLogo from '../../assets/img/zoo_logo.svg';
-import shibaLogo from '../../assets/img/shiba_logo.svg';
+// import zooLogo from '../../assets/img/zoo_logo.svg';
+// import shibaLogo from '../../assets/img/shiba_logo.svg';
 
 import danteLogo from '../../assets/img/dante.svg';
 import grailLogo from '../../assets/img/grail.svg';
@@ -21,10 +21,9 @@ import dbondLogo from '../../assets/img/dbond.svg';
 import danteTombLpLogo from '../../assets/img/dante_tomb.png';
 import grailFtmLpLogo from '../../assets/img/grail_fantom.png';
 import danteGrailLpLogo from '../../assets/img/dante_grail.svg';
-import danteLogoPNG from '../../assets/img/dante_500x500.png';
+// import danteLogoPNG from '../../assets/img/dante_500x500.png';
 
 import famePNG from '../../assets/img/fame.png';
-
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
@@ -34,7 +33,7 @@ const logosBySymbol: { [title: string]: string } = {
   TOMBPNG: tombLogoPNG,
   TSHAREPNG: tShareLogoPNG,
   TSHARE: tShareLogo,
-  TBOND: tBondLogo,  
+  TBOND: tBondLogo,
   WFTM: wftmLogo,
   USDC: usdcLogo,
   'DANTE-TOMB-LP': danteTombLpLogo,

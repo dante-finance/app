@@ -2,10 +2,9 @@ import React, { useCallback, useMemo } from 'react';
 import Page from '../../components/Page';
 import PitImage from '../../assets/img/hell.png';
 import { createGlobalStyle } from 'styled-components';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { useWallet } from 'use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
-import PageHeader from '../../components/PageHeader';
 import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
@@ -26,7 +25,6 @@ const BackgroundImage = createGlobalStyle`
 `;
 
 const Pit: React.FC = () => {
-  const { path } = useRouteMatch();
   const { account } = useWallet();
   const tombFinance = useTombFinance();
   const addTransaction = useTransactionAdder();
@@ -61,7 +59,17 @@ const Pit: React.FC = () => {
         <BackgroundImage />
         {!!account ? (
           <>
-            <h2 style={{display:'table', padding:'10px', backgroundColor: 'rgba(104, 76, 172, 0.9)', color:'rgb(244, 143, 78)', margin: '0px auto 0px auto' }}>Inferno</h2>
+            <h2
+              style={{
+                display: 'table',
+                padding: '10px',
+                backgroundColor: 'rgba(104, 76, 172, 0.9)',
+                color: 'rgb(244, 143, 78)',
+                margin: '0px auto 0px auto',
+              }}
+            >
+              Inferno
+            </h2>
 
             <StyledBond>
               <StyledCardWrapper>

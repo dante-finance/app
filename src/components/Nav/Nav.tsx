@@ -24,6 +24,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountButton from './AccountButton';
+import LinkExternal from '../LinkExternal';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: 240,
-    backgroundColor: 'rgba(104, 76, 172, 0.9)'
+    backgroundColor: 'rgba(104, 76, 172, 0.9)',
   },
   hide: {
     display: 'none',
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarTitleMobile: {
     fontFamily: 'Augusta',
-    color: '#FFF'
+    color: '#FFF',
   },
   link: {
     textTransform: 'uppercase',
@@ -81,8 +82,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   navTitle: {
-    fontFamily: 'Augusta'
-  }
+    fontFamily: 'Augusta',
+  },
 }));
 
 const Nav = () => {
@@ -105,15 +106,32 @@ const Nav = () => {
         {matches ? (
           <>
             <Typography variant="h2" color="inherit" noWrap className={classes.toolbarTitle}>
-              <Link to="/" color="inherit" className={classes.brandLink}>Dante Finance</Link>
-              <a style={{marginLeft: '20px'}} target='_blank' href='https://twitter.com/0xGuard/status/1499422602179317764'><img src={Kyc}></img></a>
+              <Link to="/" color="inherit" className={classes.brandLink}>
+                Dante Finance
+              </Link>
+              <LinkExternal
+                style={{ marginLeft: '20px' }}
+                href="https://twitter.com/0xGuard/status/1499422602179317764"
+              >
+                <img src={Kyc} alt=""></img>
+              </LinkExternal>
             </Typography>
             <Box mr={5}>
-              <Link color="textPrimary" to="/purgatory" className={classes.link}><span className={classes.navTitle}>Purgatory</span></Link>
-              <Link color="textPrimary" to="/eden" className={classes.link}><span className={classes.navTitle}>Eden</span></Link>
-              <Link color="textPrimary" to="/inferno" className={classes.link}><span className={classes.navTitle}>Inferno</span></Link>
-              <Link color="textPrimary" to="/regulations" className={classes.link}><span className={classes.navTitle}>Regulations</span></Link>
-              <a href="https://dantefinance.gitbook.io/dantefinance.com/" className={classes.link}><span className={classes.navTitle}>Docs</span></a>
+              <Link color="textPrimary" to="/purgatory" className={classes.link}>
+                <span className={classes.navTitle}>Purgatory</span>
+              </Link>
+              <Link color="textPrimary" to="/eden" className={classes.link}>
+                <span className={classes.navTitle}>Eden</span>
+              </Link>
+              <Link color="textPrimary" to="/inferno" className={classes.link}>
+                <span className={classes.navTitle}>Inferno</span>
+              </Link>
+              <Link color="textPrimary" to="/regulations" className={classes.link}>
+                <span className={classes.navTitle}>Regulations</span>
+              </Link>
+              <a href="https://dantefinance.gitbook.io/dantefinance.com/" className={classes.link}>
+                <span className={classes.navTitle}>Docs</span>
+              </a>
             </Box>
             <AccountButton text="Connect" />
           </>
@@ -128,12 +146,13 @@ const Nav = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h2" className={classes.toolbarTitleMobile} noWrap>Dante Finance</Typography>
+            <Typography variant="h2" className={classes.toolbarTitleMobile} noWrap>
+              Dante Finance
+            </Typography>
 
             <Drawer
               className={classes.drawer}
-              onEscapeKeyDown={handleDrawerClose}
-              onBackdropClick={handleDrawerClose}
+              onClose={handleDrawerClose}
               variant="temporary"
               anchor="left"
               open={open}

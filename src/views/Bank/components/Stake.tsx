@@ -1,17 +1,16 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 // import Button from '../../../components/Button';
-import { Button, Card, CardContent } from '@material-ui/core';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
-import CardIcon from '../../../components/CardIcon';
+// import CardIcon from '../../../components/CardIcon';
+// import FlashOnIcon from '@material-ui/icons/FlashOn';
+// import Label from '../../../components/Label';
+// import Value from '../../../components/Value';
+import { Button, Card, CardContent } from '@material-ui/core';
 import { AddIcon, RemoveIcon } from '../../../components/icons';
-import FlashOnIcon from '@material-ui/icons/FlashOn';
 import IconButton from '../../../components/IconButton';
-import Label from '../../../components/Label';
-import Value from '../../../components/Value';
-import { ThemeContext } from 'styled-components';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
@@ -37,7 +36,6 @@ interface StakeProps {
 const Stake: React.FC<StakeProps> = ({ bank }) => {
   const [approveStatus, approve] = useApprove(bank.depositToken, bank.address);
 
-  const { color: themeColor } = useContext(ThemeContext);
   const tokenBalance = useTokenBalance(bank.depositToken);
   const stakedBalance = useStakedBalance(bank.contract, bank.poolId);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
@@ -92,12 +90,14 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
   );
 
   return (
-    <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
+    <Card style={{ backgroundColor: 'rgba(104, 76, 172, 0.9)' }}>
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
-            <TokenSymbol symbol={bank.depositToken.symbol} size={80}/>
-            <span style={{ fontSize: '26px', marginTop: '10px' }}>{getDisplayBalance(stakedBalance, bank.depositToken.decimal)}</span>
+            <TokenSymbol symbol={bank.depositToken.symbol} size={80} />
+            <span style={{ fontSize: '26px', marginTop: '10px' }}>
+              {getDisplayBalance(stakedBalance, bank.depositToken.decimal)}
+            </span>
             <span style={{ fontSize: '16px' }}>{`${bank.depositTokenName} Staked`}</span>
             <span style={{ fontSize: '14px' }}>{`≈ $${earnedInDollars}`}</span>
           </StyledCardHeader>
@@ -128,7 +128,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                 >
                   <FlashOnIcon style={{ color: themeColor.grey[400] }} />
                 </IconButton>
-                <StyledActionSpacer /> */ }
+                <StyledActionSpacer /> */}
                 <IconButton
                   disabled={bank.closedForStaking}
                   onClick={() => (bank.closedForStaking ? null : onPresentDeposit())}

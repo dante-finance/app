@@ -1,4 +1,4 @@
-import { ChainId, Fetcher, Route, Token, Pair, TokenAmount } from '@ac32/spookyswap-sdk';
+import { Fetcher, Route, Pair, TokenAmount } from '@ac32/spookyswap-sdk';
 import { Configuration } from './config';
 import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats } from './types';
 import { BigNumber, Contract, ethers } from 'ethers';
@@ -9,9 +9,9 @@ import { getFullDisplayBalance, getDisplayBalance, getBalance } from '../utils/f
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
-import moment, { min } from 'moment';
+import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
-import { FTM_TICKER, SPOOKY_ROUTER_ADDR, TOMB_TICKER } from '../utils/constants';
+import { SPOOKY_ROUTER_ADDR } from '../utils/constants';
 import { abi as IUniswapV2Pair } from './IUniswapV2Pair.json';
 
 /**

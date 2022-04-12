@@ -7,10 +7,10 @@ import { Button, Card } from '@material-ui/core';
 // import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
 import useTombFinance from '../../../hooks/useTombFinance';
-import Label from '../../../components/Label';
+// import Label from '../../../components/Label';
 import TokenSymbol from '../../../components/TokenSymbol';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import useModal from '../../../hooks/useModal';
 import ExchangeModal from './ExchangeModal';
 import ERC20 from '../../../tomb-finance/ERC20';
@@ -62,7 +62,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
     />,
   );
   return (
-    <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
+    <Card style={{ backgroundColor: 'rgba(104, 76, 172, 0.9)' }}>
       <CardContent>
         <StyledCardContentInner>
           <StyledCardTitle>{`${action} ${toTokenName}`}</StyledCardTitle>
@@ -71,9 +71,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
               <TokenSymbol symbol={fromToken.symbol} />
               <h4>{fromTokenName}</h4>
             </StyledToken>
-            <StyledExchangeArrow>
-              
-            </StyledExchangeArrow>
+            <StyledExchangeArrow></StyledExchangeArrow>
             <StyledToken>
               <TokenSymbol symbol={toToken.symbol} />
               <h4>{toTokenName}</h4>
@@ -112,16 +110,16 @@ const StyledCardTitle = styled.div`
   margin-top: ${(props) => -props.theme.spacing[3]}px;
 `;
 
-const StyledCardIcon = styled.div`
-  background-color: ${(props) => props.theme.color.grey[900]};
-  width: 72px;
-  height: 72px;
-  border-radius: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${(props) => props.theme.spacing[2]}px;
-`;
+// const StyledCardIcon = styled.div`
+//   background-color: ${(props) => props.theme.color.grey[900]};
+//   width: 72px;
+//   height: 72px;
+//   border-radius: 36px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin-bottom: ${(props) => props.theme.spacing[2]}px;
+// `;
 
 const StyledExchanger = styled.div`
   align-items: center;

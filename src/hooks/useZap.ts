@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import useTombFinance from './useTombFinance';
-import { Bank } from '../tomb-finance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useZap = (router: string) => {

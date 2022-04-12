@@ -6,11 +6,11 @@ import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
 // import Button from '../../../components/Button';
 // import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
-import CardIcon from '../../../components/CardIcon';
+// import CardIcon from '../../../components/CardIcon';
 import { AddIcon, RemoveIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
-import Label from '../../../components/Label';
-import Value from '../../../components/Value';
+// import Label from '../../../components/Label';
+// import Value from '../../../components/Value';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
@@ -76,7 +76,7 @@ const Stake: React.FC = () => {
 
   return (
     <Box>
-      <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
+      <Card style={{ backgroundColor: 'rgba(104, 76, 172, 0.9)' }}>
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
@@ -115,7 +115,7 @@ const Stake: React.FC = () => {
         {canWithdrawFromMasonry ? (
           ''
         ) : (
-          <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
+          <Card style={{ backgroundColor: 'rgba(104, 76, 172, 0.9)' }}>
             <CardContent>
               <Typography style={{ textAlign: 'center' }}>Withdraw possible in</Typography>
               <ProgressCountdown hideBar={true} base={from} deadline={to} description="Withdraw available in" />

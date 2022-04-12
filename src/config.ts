@@ -1,6 +1,5 @@
 // import { ChainId } from '@pancakeswap-libs/sdk';
 //import { ChainId } from '@spookyswap/sdk';
-import { ChainId } from '@ac32/spookyswap-sdk';
 import { Configuration } from './tomb-finance/config';
 import { BankInfo } from './tomb-finance';
 
@@ -42,7 +41,7 @@ const configurations: { [env: string]: Configuration } = {
       'GRAIL-FTM-LP': ['0xf06ea523a86df3bda303967dce59007fd7e85be2', 18],
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
       'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
-      'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18]
+      'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -86,13 +85,13 @@ const configurations: { [env: string]: Configuration } = {
       'GRAIL-FTM-LP': ['0xf06ea523a86df3bda303967dce59007fd7e85be2', 18],
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
       'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
-      'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18]
+      'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
     masonryLaunchesAt: new Date('2020-12-11T00:00:00Z'),
     refreshInterval: 10000,
-  }
+  },
 };
 
 export const bankDefinitions: { [contractName: string]: BankInfo } = {
@@ -120,7 +119,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    fee: 0.8
+    fee: 0.8,
   },
   USDCDanteRewardPool: {
     identifier: 'USDCDanteRewardPool',
@@ -134,7 +133,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     sort: 2,
     closedForStaking: false,
-    fee: 0.8
+    fee: 0.8,
   },
   TombDanteRewardPool: {
     identifier: 'TombDanteRewardPool',
@@ -148,7 +147,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     sort: 3,
     closedForStaking: false,
-    fee: 0.8
+    fee: 0.8,
   },
   DanteTombLPDanteRewardPool: {
     identifier: 'DanteTombLPDanteRewardPool',
@@ -162,7 +161,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     sort: 4,
     closedForStaking: false,
-    fee: 0.8
+    fee: 0.8,
   },
   FameDanteRewardPool: {
     identifier: 'FameDanteRewardPool',
@@ -176,7 +175,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     sort: 5,
     closedForStaking: false,
-    fee: 0.8
+    fee: 0.8,
   },
   DanteTombLPGrailRewardPool: {
     identifier: 'DanteTombLPGrailRewardPool',
@@ -190,7 +189,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     sort: 1,
     closedForStaking: false,
-    fee: 0
+    fee: 0,
   },
   GrailWFTMLPGrailRewardPool: {
     identifier: 'GrailWFTMLPGrailRewardPool',
@@ -204,8 +203,8 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     sort: 2,
     closedForStaking: false,
-    fee: 0
-  }
+    fee: 0,
+  },
   /*DanteGrailLPGrailRewardPool: {
     identifier: 'DanteGrailLPGrailRewardPool',
     name: 'Earn Grail by Dante-Grail LP',

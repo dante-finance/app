@@ -1,8 +1,7 @@
 import { BigNumber, ethers } from 'ethers';
 import { useWallet } from 'use-wallet';
 import { useCallback, useMemo, useState, useEffect } from 'react';
-import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
-import useAllowance from './useAllowance';
+import { useTransactionAdder } from '../state/transactions/hooks';
 import ERC20 from '../tomb-finance/ERC20';
 import { TOMB_ZAPPER_ROUTER_ADDR, WFTM_ZAPPER_ROUTER_ADDR } from '../utils/constants';
 import useTombFinance from './useTombFinance';

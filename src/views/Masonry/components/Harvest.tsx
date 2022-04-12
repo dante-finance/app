@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
 
 import TokenSymbol from '../../../components/TokenSymbol';
-import Label from '../../../components/Label';
-import Value from '../../../components/Value';
-import CardIcon from '../../../components/CardIcon';
 import useClaimRewardTimerMasonry from '../../../hooks/masonry/useClaimRewardTimerMasonry';
 import useClaimRewardCheck from '../../../hooks/masonry/useClaimRewardCheck';
 import ProgressCountdown from './../components/ProgressCountdown';
@@ -32,7 +29,7 @@ const Harvest: React.FC = () => {
 
   return (
     <Box>
-      <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
+      <Card style={{ backgroundColor: 'rgba(104, 76, 172, 0.9)' }}>
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
@@ -58,7 +55,7 @@ const Harvest: React.FC = () => {
         {canClaimReward ? (
           ''
         ) : (
-          <Card style={{backgroundColor: 'rgba(104, 76, 172, 0.9)'}}>
+          <Card style={{ backgroundColor: 'rgba(104, 76, 172, 0.9)' }}>
             <CardContent>
               <Typography style={{ textAlign: 'center' }}>Claim possible in</Typography>
               <ProgressCountdown hideBar={true} base={from} deadline={to} description="Claim available in" />
