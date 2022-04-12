@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 
 import { Card, CardContent, Grid } from '@material-ui/core';
 
@@ -35,10 +34,10 @@ const Autocompounders = () => {
             </CardContent>
           </Card>
 
-          <a href='https://www.grim.finance/' target='_blank'>
+          <a href='https://www.grim.finance/' target='_blank' rel="noopener noreferrer">
             <Grid justify="space-between" container style={{marginTop: '20px', backgroundColor:'#000'}}>
               <Grid item>
-                <img style={{width: '100px'}} src={GrimImg} />
+                <img style={{width: '100px'}} src={GrimImg} alt="grim" />
               </Grid>
 
               <Grid item style={{
@@ -51,10 +50,10 @@ const Autocompounders = () => {
             </Grid>
           </a>
 
-          <a href='https://yieldwolf.finance/' target='_blank'>
+          <a href='https://yieldwolf.finance/' target='_blank' rel="noopener noreferrer">
             <Grid justify="space-between" container style={{marginTop: '20px', backgroundColor:'#FFF'}}>
               <Grid item>
-                <img style={{width: '100px'}} src={YieldWolfImg} />
+                <img style={{width: '100px'}} src={YieldWolfImg} alt="yieldwolf" />
               </Grid>
 
               <Grid item style={{
@@ -67,10 +66,10 @@ const Autocompounders = () => {
             </Grid>
           </a>
 
-          <a href='https://app.beluga.fi/' target='_blank'>
+          <a href='https://app.beluga.fi/' target='_blank' rel="noopener noreferrer">
             <Grid justify="space-between" container style={{marginTop: '20px', backgroundColor:'#000'}}>
               <Grid item>
-                <img style={{width: '100px'}} src={BelugaImg} />
+                <img style={{width: '100px'}} src={BelugaImg} alt="beluga" />
               </Grid>
 
               <Grid item style={{
