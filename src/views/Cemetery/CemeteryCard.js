@@ -36,28 +36,6 @@ const CemeteryCard = ({ bank }) => {
               </Button>
             </Grid>
           </Grid>
-          {/*
-            <Box style={{ position: 'relative' }}>
-              <Box
-                style={{
-                  position: 'absolute',
-                  right: '0px',
-                  top: '-5px',
-                  height: '48px',
-                  width: '48px',
-
-                  alignItems: 'center',
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}
-              >
-                <TokenSymbol size={64} symbol={bank.depositTokenName} />
-              </Box>
-              <h4 style={{marginBottom: "5px"}}>{bank.depositTokenName}</h4>
-              <h5 style={{fontSize: "1em"}}>Deposit: {bank.depositTokenName.toUpperCase()}</h5>
-              <h5 style={{fontSize: "1em"}}>Earn: {bank.earnTokenName}</h5>
-            </Box>
-              */}
         </CardContent>
       </Card>
     </Grid>
