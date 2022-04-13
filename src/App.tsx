@@ -1,6 +1,7 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useMemo } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query';
 import { ThemeProvider as TP } from '@material-ui/core/styles';
 import { ThemeProvider as TP1 } from 'styled-components';
 import { UseWalletProvider } from 'use-wallet';
@@ -17,6 +18,7 @@ import Loader from './components/Loader';
 import Popups from './components/Popups';
 import Regulations from './views/Regulations/Regulations';
 import { App404 } from './components/App/App404';
+import { AppQueryClient } from './queryClient';
 
 const Home = lazy(() => import('./views/Home'));
 const Cemetery = lazy(() => import('./views/Cemetery'));
@@ -76,28 +78,30 @@ const App: React.FC = () => {
 };
 
 const Providers: React.FC = ({ children }) => {
+  const connectors = useMemo(
+    () => ({
+      walletconnect: { rpcUrl: config.defaultProvider },
+    }),
+    [],
+  );
+
   return (
     <TP1 theme={theme}>
       <TP theme={newTheme}>
-        <UseWalletProvider
-          chainId={config.chainId}
-          connectors={{
-            walletconnect: { rpcUrl: config.defaultProvider },
-          }}
-        >
-          <Provider store={store}>
-            <Updaters />
-            <TombFinanceProvider>
-              <ModalsProvider>
-                <BanksProvider>
-                  <>
+        <UseWalletProvider chainId={config.chainId} connectors={connectors}>
+          <QueryClientProvider client={AppQueryClient}>
+            <Provider store={store}>
+              <Updaters />
+              <TombFinanceProvider>
+                <ModalsProvider>
+                  <BanksProvider>
                     <Popups />
                     {children}
-                  </>
-                </BanksProvider>
-              </ModalsProvider>
-            </TombFinanceProvider>
-          </Provider>
+                  </BanksProvider>
+                </ModalsProvider>
+              </TombFinanceProvider>
+            </Provider>
+          </QueryClientProvider>
         </UseWalletProvider>
       </TP>
     </TP1>

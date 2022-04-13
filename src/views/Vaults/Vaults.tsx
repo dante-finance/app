@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
 import Page from '../../components/Page';
 import { Accordion, AccordionSummary } from '@material-ui/core';
-import { VaultItemModel } from './VaultsModel';
+import { Skeleton } from '@material-ui/lab';
+import { VaultPool } from '../../tomb-finance/types';
+import useTombFinance from '../../hooks/useTombFinance';
+import { useQuery } from 'react-query';
 import { PageBackgroundDefault } from '../../components/PageBackground/PageBackgroundDefault';
-
-const MOCK_DATA: VaultItemModel[] = ['A', 'B', 'C'].map((it) => ({ id: it, label: it } as VaultItemModel));
+import { VaultsVault } from './components/VaultsVault';
 
 export default function Vaults(): JSX.Element {
-  const [expandedItemID, setExpandedItemID] = useState<VaultItemModel['id']>();
+  const [expandedItemID, setExpandedItemID] = useState<VaultPool['contract']>();
+
+  const tombFinance = useTombFinance();
+
+  const { isLoading, data, error } = useQuery(['vaults', 'list'], () => tombFinance.getVaults());
+
+  if (isLoading) {
+    return (
+      <Page>
+        <PageBackgroundDefault />
+        <Skeleton variant="rect" height={150} />
+        <Skeleton variant="rect" height={150} />
+        <Skeleton variant="rect" height={150} />
+      </Page>
+    );
+  }
+
+  if (error) {
+    return <>An error occurred</>;
+  }
 
   return (
     <Page>
@@ -15,16 +36,20 @@ export default function Vaults(): JSX.Element {
 
       <h1>Vaults</h1>
 
-      {MOCK_DATA.map((item) => (
+      {data.map((vault) => (
         <Accordion
-          key={item.id}
-          expanded={item.id === expandedItemID}
+          key={vault.contract}
+          expanded={vault.contract === expandedItemID}
           onChange={(): void => {
-            setExpandedItemID(item.id);
+            if (vault.contract === expandedItemID) {
+              setExpandedItemID(null);
+            } else {
+              setExpandedItemID(vault.contract);
+            }
           }}
         >
-          <AccordionSummary style={{ color: 'black' }}>{item.label}</AccordionSummary>
-          <div style={{ color: 'black' }}>CONTENT OF {item.label}</div>
+          <AccordionSummary style={{ color: 'black' }}>{vault.name}</AccordionSummary>
+          {vault.contract === expandedItemID && <VaultsVault vaultContract={vault.contract} />}
         </Accordion>
       ))}
     </Page>

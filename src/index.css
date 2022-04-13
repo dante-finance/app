@@ -10,8 +10,8 @@ a {
   text-decoration: none;
 }
 
-span, 
-p, 
+span,
+p,
 h5,
 h6 {
   margin: 0;
@@ -128,4 +128,8 @@ ul {
 .zap-in-dante:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+input, button {
+  color: black !important;
 }
