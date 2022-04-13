@@ -2,6 +2,7 @@
 //import { ChainId } from '@spookyswap/sdk';
 import { Configuration } from './tomb-finance/config';
 import { BankInfo } from './tomb-finance';
+import { Vault } from './tomb-finance/types';
 
 const configurations: { [env: string]: Configuration } = {
   /*development: {
@@ -36,6 +37,7 @@ const configurations: { [env: string]: Configuration } = {
       USDC: ['0x04068da6c83afcfa0e13ba15a6696662335d5b75', 6],
       TOMB: ['0x6c021ae822bea943b2e66552bde1d2696a53fbb7', 18],
       FAME: ['0x904f51a2E7eEaf76aaF0418cbAF0B71149686f4A', 18],
+      'DANTE-TOMB-VAULT': ['', 18],
       'USDC-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
       'DANTE-TOMB-LP': ['0xac32e07c25cb18266841ed7035390744cd3b1155', 18],
       'GRAIL-FTM-LP': ['0xf06ea523a86df3bda303967dce59007fd7e85be2', 18],
@@ -220,5 +222,20 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     fee: 0
   }*/
 };
+
+export const vaultDefinitions: { [contractName: string]: Vault } = {
+  "DanteTombVault": {
+    poolId: 1,
+    shareTokenName: "DANTE-TOMB-VAULT",
+    wantTokenName: "DANTE-TOMB-LP",
+    poolName: "Dante-Tomb Vault"
+  }
+  /*"GrailFtmVault": {
+    poolId: 2,
+    shareTokenName: "string",
+    wantTokenName: "string",
+    poolName: "string"
+  }*/
+}
 
 export default configurations[process.env.NODE_ENV || 'development'];
