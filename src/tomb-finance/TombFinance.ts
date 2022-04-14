@@ -320,11 +320,11 @@ export class TombFinance {
 
       switch (depositTokenName) {
         case 'DANTE-TOMB-LP':
-          return rewardPerSecond.mul(29750).div(59500);
+          return rewardPerSecond.mul(29750).div(51750);
         case 'GRAIL-FTM-LP':
-          return rewardPerSecond.mul(22000).div(59500);
+          return rewardPerSecond.mul(22000).div(51750);
         case 'DANTE-GRAIL-LP':
-          return rewardPerSecond.mul(7750).div(59500);
+          return rewardPerSecond.mul(0).div(51750);
         default:
           return 0;
       }
