@@ -161,9 +161,10 @@ const Home = () => {
             <Box p={3}>
               <h2>Welcome to Dante Finance</h2>
               <p>
-                We have big plans for Dante. After our successful genesis launch, we are now working to release our
-                Dante Inferno style NFTs and a unique feature to single stake Dante tokens for fixed APR rewards. You
-                can check our complete roadmap{' '}
+                We have big plans for Dante Finance. After our successful genesis launch, we are now working to release
+                our Dante Inferno style NFTs and Dante Vaults auto-compounder. Users that stake the NFTs will be
+                elegible for protocol revenue in USDC as we are putting our community first! You can check our complete
+                roadmap{' '}
                 <LinkExternal
                   style={{ color: '#FFF', textDecoration: 'underline' }}
                   href="https://dantefinance.gitbook.io/dantefinance.com/roadmap"
@@ -203,12 +204,8 @@ const Home = () => {
                     Purgatory
                   </a>{' '}
                   or on an{' '}
-                  <a
-                    target="_blank"
-                    style={{ color: '#FFF', textDecoration: 'underline' }} 
-                    href="/autocompounders"
-                  >
-                      auto-compounder
+                  <a target="_blank" style={{ color: '#FFF', textDecoration: 'underline' }} href="/autocompounders">
+                    auto-compounder
                   </a>
                   .
                 </li>
