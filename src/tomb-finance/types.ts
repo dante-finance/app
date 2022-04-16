@@ -1,4 +1,5 @@
 import ERC20 from './ERC20';
+import { BigNumber } from 'ethers';
 
 export type ContractName = string;
 
@@ -21,6 +22,13 @@ export interface Bank extends BankInfo {
   address: string;
   depositToken: ERC20;
   earnToken: ERC20;
+}
+
+export interface Vault {
+  contract: string;
+  shareTokenName: string;
+  wantTokenName: string;
+  poolName: string;
 }
 
 export type PoolStats = {
@@ -47,4 +55,22 @@ export type LPStat = {
 export type AllocationTime = {
   from: Date;
   to: Date;
+};
+
+export type VaultPool = {
+  contract: string;
+  name: string;
+};
+
+export type VaultPoolDetails = {
+  contract: string;
+  name: string;
+  want: string;
+  wantBalance: BigNumber;
+  share: string;
+  shareBalance: BigNumber;
+  allowance: BigNumber;
+  pricePerFullShare: BigNumber;
+  apy: number;
+  tvl: BigNumber;
 };

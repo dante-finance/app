@@ -1,6 +1,16 @@
 import { Fetcher, Route, Pair, TokenAmount } from '@ac32/spookyswap-sdk';
 import { Configuration } from './config';
-import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats } from './types';
+import {
+  ContractName,
+  TokenStat,
+  AllocationTime,
+  LPStat,
+  Bank,
+  PoolStats,
+  VaultPool,
+  VaultPoolDetails,
+  Vault,
+} from './types';
 import { BigNumber, Contract, ethers } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
@@ -8,7 +18,7 @@ import ERC20 from './ERC20';
 import { getFullDisplayBalance, getDisplayBalance, getBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
-import config, { bankDefinitions } from '../config';
+import config, { bankDefinitions, vaultDefinitions } from '../config';
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
 import { SPOOKY_ROUTER_ADDR } from '../utils/constants';
@@ -895,5 +905,124 @@ export class TombFinance {
         parseUnits(minAmount, 18),
       );
     }
+  }
+
+  /* VAULTS APIs */
+
+  /**
+   * Deposit an amount of LP tokens in a vault
+   * @param want LP token to deposit
+   * @param vault vault contract
+   * @returns
+   */
+  async deposit(want: BigNumber, vault: string): Promise<TransactionResponse> {
+    var contract = this.contracts[vault];
+    return await contract.deposit(want);
+  }
+
+  /**
+   * Deposit all LP tokens in a vault
+   * @param vault vault contract
+   * @returns
+   */
+  async depositAll(vault: string): Promise<TransactionResponse> {
+    var contract = this.contracts[vault];
+    return await contract.depositAll();
+  }
+
+  /**
+   * Withdraw a certain amount of LP from vault based on shares
+   * @param shares amount of vault shares
+   * @param vault vault contract
+   * @returns
+   */
+  async withdraw(shares: BigNumber, vault: string): Promise<TransactionResponse> {
+    var contract = this.contracts[vault];
+    return await contract.withdraw();
+  }
+
+  /**
+   * Withdraw all LP from vault
+   * @param vault vault contract
+   * @returns
+   */
+  async withdrawAll(vault: string): Promise<TransactionResponse> {
+    var contract = this.contracts[vault];
+    return await contract.withdrawAll();
+  }
+
+  /**
+   * Get all available vault pools
+   * @returns
+   */
+  getVaults(): VaultPool[] {
+    return Object.values(vaultDefinitions).map(
+      (vaultInfo) =>
+        ({
+          contract: vaultInfo.contract,
+          name: vaultInfo.poolName,
+        } as VaultPool),
+    );
+  }
+
+  /**
+   * Get the latest price per share in the specified vault
+   * @param contract name of contract
+   * @returns
+   */
+  async getVaultPricePerFullShare(vault: string): Promise<BigNumber> {
+    const contract = this.contracts[vault];
+    return await contract.getPricePerFullShare();
+  }
+
+  /**
+   * Get detailed info about a pool
+   * @param contract
+   */
+  async getVault(vault: string): Promise<VaultPoolDetails> {
+    // get contract of vault
+    const contract = this.contracts[vault];
+
+    // get definition of vault
+    const definition: Vault = vaultDefinitions[vault];
+
+    // get want erc20
+    const want = this.externalTokens[definition.wantTokenName];
+
+    // get share erc20
+    const share = this.externalTokens[definition.shareTokenName];
+
+    // get LP price per share
+    const pricePerShare: BigNumber = await contract.getPricePerFullShare();
+
+    // get tvl
+    const tvl: BigNumber = await contract.balance();
+
+    // get allowance value of sending want tokens to vault
+    const allowance =
+      this.myAccount !== undefined ? await want.allowance(this.myAccount, contract.address) : BigNumber.from('0');
+
+    // get want balance
+    const wantBalance = this.myAccount !== undefined ? await want.balanceOf(this.myAccount) : BigNumber.from('0');
+
+    // get share balance
+    const shareBalance = this.myAccount !== undefined ? await share.balanceOf(this.myAccount) : BigNumber.from('0');
+
+    // @todo
+    // calculate APY
+    const apy = 0;
+
+    return {
+      contract: definition.contract,
+      name: definition.poolName,
+      want: want.symbol,
+      wantBalance: wantBalance,
+      share: share.symbol,
+      shareBalance: shareBalance,
+      allowance: allowance,
+      pricePerFullShare: pricePerShare,
+      apy: apy,
+      tvl: tvl,
+    };
   }
 }
