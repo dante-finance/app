@@ -48,7 +48,9 @@ export default function Vaults(): JSX.Element {
             }
           }}
         >
-          <AccordionSummary style={{ color: 'black' }}>{vault.name}</AccordionSummary>
+          <AccordionSummary style={{ color: 'black' }}>
+            <h2>{vault.name}</h2>
+          </AccordionSummary>
           {vault.contract === expandedItemID && <VaultsVault vaultContract={vault.contract} />}
         </Accordion>
       ))}
