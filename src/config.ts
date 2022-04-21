@@ -42,6 +42,8 @@ const configurations: { [env: string]: Configuration } = {
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
       'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
       'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18],
+      DANTE: ['0xda763530614fb51dff9673232c8b3b3e0a67bcf2', 18],
+      GRAIL: ['0x255861B569D44Df3E113b6cA090a1122046E6F89', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -86,6 +88,8 @@ const configurations: { [env: string]: Configuration } = {
       'TOMB-FTM-LP': ['0x2A651563C9d3Af67aE0388a5c8F89b867038089e', 18],
       'DANTE-GRAIL-LP': ['0xb8c780a89e8f13414a96d13aa13c523f1a5d36bc', 18],
       'FAME-USDC-LP': ['0x755904c8ccb785366c57bcf883cb25bb00dd100f', 18],
+      DANTE: ['0xda763530614fb51dff9673232c8b3b3e0a67bcf2', 18],
+      GRAIL: ['0x255861B569D44Df3E113b6cA090a1122046E6F89', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -219,6 +223,20 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: false,
     fee: 0
   }*/
+  DanteGrailRewardPool: {
+    identifier: 'DanteGrailRewardPool',
+    name: 'Earn Grail by Dante',
+    poolId: 3,
+    sectionInUI: 2,
+    contract: 'GrailRewardPool',
+    depositTokenName: 'DANTE',
+    depositTokenNameSpan: 'Dante',
+    earnTokenName: 'GRAIL',
+    finished: false,
+    sort: 4,
+    closedForStaking: false,
+    fee: 0,
+  },
 };
 
 export default configurations[process.env.NODE_ENV || 'development'];

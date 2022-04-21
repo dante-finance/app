@@ -320,11 +320,13 @@ export class TombFinance {
 
       switch (depositTokenName) {
         case 'DANTE-TOMB-LP':
-          return rewardPerSecond.mul(29750).div(51750);
+          return rewardPerSecond.mul(29750).div(59500);
         case 'GRAIL-FTM-LP':
-          return rewardPerSecond.mul(22000).div(51750);
+          return rewardPerSecond.mul(22000).div(59500);
         case 'DANTE-GRAIL-LP':
-          return rewardPerSecond.mul(0).div(51750);
+          return rewardPerSecond.mul(0).div(59500);
+        case 'DANTE':
+          return rewardPerSecond.mul(7750).div(59500);
         default:
           return 0;
       }
@@ -386,6 +388,15 @@ export class TombFinance {
         );
 
         return Number(priceInUSDC).toFixed(2);
+      }
+      case 'DANTE': {
+        const priceofDanteInTomb = Number(
+          await this.getTokenPriceFromSpookySwap(this.TOMB, this.DANTE, this.externalTokens['DANTE-TOMB-LP'].address),
+        );
+
+        const tombInUSD = await this.getTOMBPriceInDollars();
+
+        return (priceofDanteInTomb * tombInUSD).toFixed(2);
       }
       default: {
         return '0';

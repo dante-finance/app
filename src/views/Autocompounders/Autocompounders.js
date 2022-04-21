@@ -5,6 +5,7 @@ import { Card, CardContent, Grid } from '@material-ui/core';
 import Page from '../../components/Page';
 import { PageBackgroundDefault } from '../../components/PageBackground/PageBackgroundDefault';
 
+import MatrixImg from '../../assets/img/matrixfarm.png';
 import GrimImg from '../../assets/img/grim.jpg';
 import YieldWolfImg from '../../assets/img/yieldwolf.jpg';
 import BelugaImg from '../../assets/img/beluga.jpg';
@@ -33,11 +34,32 @@ const Autocompounders = () => {
             <CardContent>
               <p style={{ color: '#fff', fontSize: '18px' }}>
                 Auto-compounders are used to re-invest profits for you. When you deposit your Dante-Tomb or Grail-Ftm LP
-                tokens in an autocompounder, it will automatically harvest reward tokens and compound interests to boost
+                tokens in an autocompounder, it will automagically harvest reward tokens and compound interests to boost
                 APY. It also shares gas fees so everyone benefits!
               </p>
             </CardContent>
           </Card>
+
+          <a href="https://matrix.farm/" target="_blank" rel="noopener noreferrer">
+            <Grid justify="space-between" container style={{ marginTop: '20px', backgroundColor: '#212049' }}>
+              <Grid item>
+                <img style={{ width: '100px' }} src={MatrixImg} alt="grim" />
+              </Grid>
+
+              <Grid
+                item
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <h5 style={{ color: '#fff', fontSize: '38px', margin: 0, padding: 0, paddingRight: '20px' }}>
+                  MATRIX FARM
+                </h5>
+              </Grid>
+            </Grid>
+          </a>
 
           <a href="https://www.grim.finance/" target="_blank" rel="noopener noreferrer">
             <Grid justify="space-between" container style={{ marginTop: '20px', backgroundColor: '#000' }}>
@@ -53,7 +75,7 @@ const Autocompounders = () => {
                   justifyContent: 'center',
                 }}
               >
-                <h5 style={{ color: '#fff', fontSize: '38px', margin: 0, padding: 0, paddingRight: '40px' }}>
+                <h5 style={{ color: '#fff', fontSize: '38px', margin: 0, padding: 0, paddingRight: '20px' }}>
                   GRIM FINANCE
                 </h5>
               </Grid>
@@ -74,14 +96,14 @@ const Autocompounders = () => {
                   justifyContent: 'center',
                 }}
               >
-                <h5 style={{ color: '#000', fontSize: '38px', margin: 0, padding: 0, paddingRight: '40px' }}>
+                <h5 style={{ color: '#000', fontSize: '38px', margin: 0, padding: 0, paddingRight: '20px' }}>
                   YIELDWOLF FANTOM
                 </h5>
               </Grid>
             </Grid>
           </a>
 
-          <a href="https://app.beluga.fi/" target="_blank" rel="noopener noreferrer">
+          {/*<a href="https://app.beluga.fi/" target="_blank" rel="noopener noreferrer">
             <Grid justify="space-between" container style={{ marginTop: '20px', backgroundColor: '#000' }}>
               <Grid item>
                 <img style={{ width: '100px' }} src={BelugaImg} alt="beluga" />
@@ -100,7 +122,7 @@ const Autocompounders = () => {
                 </h5>
               </Grid>
             </Grid>
-          </a>
+              </a>*/}
         </Grid>
         <Grid item xs={12} sm={2}></Grid>
       </Grid>
