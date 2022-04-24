@@ -316,17 +316,24 @@ export class TombFinance {
           return 0;
       }
     } else {
-      const rewardPerSecond = await poolContract.tSharePerSecond();
+      const rewardPerSecond: BigNumber = await poolContract.tSharePerSecond();
+
+      let total: BigNumber = await poolContract.totalAllocPoint();
+
+      let pool0: BigNumber = (await poolContract.poolInfo(0)).allocPoint;
+      let pool1: BigNumber = (await poolContract.poolInfo(1)).allocPoint;
+      let pool2: BigNumber = (await poolContract.poolInfo(2)).allocPoint;
+      let pool3: BigNumber = (await poolContract.poolInfo(3)).allocPoint;
 
       switch (depositTokenName) {
         case 'DANTE-TOMB-LP':
-          return rewardPerSecond.mul(29000).div(59500);
+          return rewardPerSecond.mul(pool0).div(total);
         case 'GRAIL-FTM-LP':
-          return rewardPerSecond.mul(20500).div(59500);
+          return rewardPerSecond.mul(pool1).div(total);
         case 'DANTE-GRAIL-LP':
-          return rewardPerSecond.mul(0).div(59500);
+          return rewardPerSecond.mul(pool2).div(total);
         case 'DANTE':
-          return rewardPerSecond.mul(10000).div(59500);
+          return rewardPerSecond.mul(pool3).div(total);
         default:
           return 0;
       }
