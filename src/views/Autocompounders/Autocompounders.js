@@ -8,7 +8,6 @@ import { PageBackgroundDefault } from '../../components/PageBackground/PageBackg
 import MatrixImg from '../../assets/img/matrixfarm.png';
 import GrimImg from '../../assets/img/grim.jpg';
 import YieldWolfImg from '../../assets/img/yieldwolf.jpg';
-import BelugaImg from '../../assets/img/beluga.jpg';
 
 const Autocompounders = () => {
   return (
