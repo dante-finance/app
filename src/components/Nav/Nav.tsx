@@ -126,8 +126,8 @@ const Nav = () => {
               <Link color="textPrimary" to="/inferno" className={classes.link}>
                 <span className={classes.navTitle}>Inferno</span>
               </Link>
-              <Link color="textPrimary" to="/regulations" className={classes.link}>
-                <span className={classes.navTitle}>Regulations</span>
+              <Link color="textPrimary" to="/minting" className={classes.link}>
+                <span className={classes.navTitle}>Nfts</span>
               </Link>
               <a href="https://dantefinance.gitbook.io/dantefinance.com/" className={classes.link}>
                 <span className={classes.navTitle}>Docs</span>
@@ -171,7 +171,7 @@ const Nav = () => {
                 <ListItemLink primary="Purgatory" to="/purgatory" />
                 <ListItemLink primary="Eden" to="/eden" />
                 <ListItemLink primary="Inferno" to="/inferno" />
-                <ListItemLink primary="Regulations" to="/regulations" />
+                <ListItemLink primary="Nfts" to="/minting" />
                 <ListItem button component="a" href="https://dantefinance.gitbook.io/dantefinance.com/">
                   <ListItemText>Docs</ListItemText>
                 </ListItem>

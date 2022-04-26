@@ -1,10 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Page from '../../components/Page';
 import { PageBackgroundDefault } from '../../components/PageBackground/PageBackgroundDefault';
-import { Contract, utils, ethers } from 'ethers';
-import { TransactionResponse } from '@ethersproject/providers';
+import { Contract, ethers, BigNumber } from 'ethers';
 import useTombFinance from '../../hooks/useTombFinance';
-import { Box, Button, Grid, Paper, FormControl, Select, InputLabel, MenuItem } from '@material-ui/core';
+import { Box, Button, Grid, Paper, FormControl, Select, MenuItem } from '@material-ui/core';
 import useHandleTransactionReceipt from '../../hooks/useHandleTransactionReceipt';
 import { makeStyles } from '@material-ui/core/styles';
 import NFT from '../../assets/img/nft.png';
@@ -17,70 +16,73 @@ const useStyles = makeStyles((theme: any) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  select: {
+    '& ul': {
+      backgroundColor: '#FFFFFF',
+    },
+    '& li': {
+      fontSize: 12,
+      color: '#000000',
+    },
+  },
 }));
 
 export default function Minting(): JSX.Element {
   const tombFinance = useTombFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
-  const [numWhitelisted, setNumWhitelisted] = useState(Number(0));
+  const [totalPrice, setTotalPrice] = useState(BigNumber.from(0));
   const [claimTimestampEnd, setClaimTimestampEnd] = useState(Number(0));
   const [revealTimestamp, setRevealTimestamp] = useState(Number(0));
   const [saleStart, setSaleStart] = useState(Number(0));
-
-  const fetchNumWhitelisted = useCallback(
-    async (contract: Contract) => {
-      if (tombFinance.myAccount) {
-        let num = Number(await contract.claimWhitelist(tombFinance.myAccount));
-        setNumWhitelisted(num);
-      }
-    },
-    [tombFinance.myAccount],
-  );
-
-  const fetchTimestampsAsync = useCallback(async (contract: Contract) => {
-    let claim = (await contract.claimTimestampEnd()) * 1000;
-    setClaimTimestampEnd(claim);
-
-    let reveal = (await contract.revealTimestamp()) * 1000;
-    setRevealTimestamp(reveal);
-  }, []);
-
-  const fetchSaleOpenAsync = useCallback(async (contract: Contract) => {
-    setSaleStart((await contract.saleStart()) * 1000);
-  }, []);
+  const [amount, setAmount] = React.useState(Number(0));
 
   useEffect(() => {
-    if (tombFinance) {
+    (async () => {
+      if (tombFinance.myAccount) {
+        const contract = tombFinance.contracts['DanteNFT'];
+        let num = Number(await contract.claimWhitelist(tombFinance.myAccount));
+        setAmount(num);
+
+        let claim = (await contract.claimTimestampEnd()) * 1000;
+        setClaimTimestampEnd(claim);
+        let reveal = (await contract.revealTimestamp()) * 1000;
+        setRevealTimestamp(reveal);
+
+        setSaleStart((await contract.saleStart()) * 1000);
+      }
+    })();
+
+    return () => {};
+  }, [tombFinance.contracts, tombFinance.myAccount]);
+
+  useEffect(() => {
+    (async () => {
       const contract = tombFinance.contracts['DanteNFT'];
+      let price: BigNumber = await contract.price(amount.toString());
+      setTotalPrice(price);
+    })();
 
-      fetchTimestampsAsync(contract);
-      fetchNumWhitelisted(contract);
-
-      fetchSaleOpenAsync(contract);
-    }
-  }, [fetchNumWhitelisted, fetchSaleOpenAsync, fetchTimestampsAsync, tombFinance]);
+    return () => {};
+  }, [amount, tombFinance.contracts]);
 
   const classes = useStyles();
-  const [amount, setAmount] = React.useState(Number(0));
 
   const handleChange = (event: any) => {
     setAmount(Number(event.target.value));
   };
 
   const handleClaim = useCallback(async () => {
-    let contract = tombFinance.contracts['DanteNFT'];
-    let price = await contract.price(numWhitelisted.toString());
-    handleTransactionReceipt(contract.whitelistMint({ value: price }), `Claim whitelisted NFTs`);
-  }, [handleTransactionReceipt, numWhitelisted, tombFinance.contracts]);
+    const contract: Contract = tombFinance.contracts['DanteNFT'];
+    handleTransactionReceipt(contract.whitelistMint({ value: totalPrice }), `Claim whitelisted NFTs`);
+  }, [handleTransactionReceipt, tombFinance.contracts, totalPrice]);
 
   const handleBuy = useCallback(
     async (amount: number) => {
-      let contract = tombFinance.contracts['DanteNFT'];
-      let price = await contract.price(amount.toString());
-      handleTransactionReceipt(contract.publicMint(amount.toString(), { value: price }), `Buy NFTs`);
+      const contract: Contract = tombFinance.contracts['DanteNFT'];
+      handleTransactionReceipt(contract.publicMint(amount.toString(), { value: totalPrice }), `Buy NFTs`);
     },
-    [handleTransactionReceipt, tombFinance.contracts],
+    [handleTransactionReceipt, tombFinance.contracts, totalPrice],
   );
 
   const now = Date.now();
@@ -98,26 +100,31 @@ export default function Minting(): JSX.Element {
           margin: '0px auto 0px auto',
         }}
       >
-        Dante Nft Sale
+        Dante Encounters the Lynx
       </h2>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} style={{ padding: '60px' }}>
           <img style={{ width: '100%' }} src={NFT} alt="grim" />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} style={{ padding: '60px' }}>
           <Paper className="danteCard">
             <Box p={3}>
               {saleStart > 0 ? (
                 /* sale launched! */
                 now < claimTimestampEnd ? (
                   /* sale in whitelist phase */
-                  numWhitelisted > 0 ? (
+                  amount > 0 ? (
                     <div>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box textAlign="center">
-                            <p style={{ textAlign: 'center' }}>Claim {numWhitelisted} NFTs</p>
+                            <p style={{ textAlign: 'center' }}>Claim your {amount} NFT</p>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Box textAlign="center">
+                            <p style={{ textAlign: 'center' }}>Price: {ethers.utils.formatEther(totalPrice)} FTM</p>
                           </Box>
                         </Grid>
                         <Grid item xs={12}>
@@ -138,7 +145,9 @@ export default function Minting(): JSX.Element {
                     </div>
                   ) : (
                     /* address not whitelisted */
-                    <div>Address not whitelisted</div>
+                    <Box textAlign="center">
+                      <p>Address not whitelisted</p>
+                    </Box>
                   )
                 ) : now < revealTimestamp ? (
                   /* sale in public phase */
@@ -146,15 +155,14 @@ export default function Minting(): JSX.Element {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Box textAlign="center">
-                          <p>Public sale</p>
+                          <p>Public NFT sale</p>
                         </Box>
                       </Grid>
                       <Grid item xs={12}>
                         <Box textAlign="center">
                           <FormControl className={classes.formControl}>
-                            <InputLabel id="amount-select-label">Num</InputLabel>
                             <Select
-                              labelId="amount-select-label"
+                              MenuProps={{ classes: { paper: classes.select } }}
                               id="amount-select"
                               value={amount}
                               onChange={handleChange}
@@ -167,29 +175,38 @@ export default function Minting(): JSX.Element {
                             </Select>
                           </FormControl>
                         </Box>
-                        <Grid item xs={12}>
-                          <Box textAlign="center">
-                            <Button
-                              color="default"
-                              variant="contained"
-                              onClick={() => {
-                                handleBuy(amount);
-                              }}
-                            >
-                              Buy
-                            </Button>
-                          </Box>
-                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Box textAlign="center">
+                          <p style={{ textAlign: 'center' }}>Price: {ethers.utils.formatEther(totalPrice)} FTM</p>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Box textAlign="center">
+                          <Button
+                            color="default"
+                            variant="contained"
+                            onClick={() => {
+                              handleBuy(amount);
+                            }}
+                          >
+                            Buy
+                          </Button>
+                        </Box>
                       </Grid>
                     </Grid>
                   </div>
                 ) : (
                   /* sale ended */
-                  <div>Sale ended</div>
+                  <div>
+                    <Box textAlign="center">NFT Sale ended.</Box>
+                  </div>
                 )
               ) : (
                 /* sale not yet started */
-                <div>Sale yet to start</div>
+                <div>
+                  <Box textAlign="center">NFT Sale not yet started.</Box>
+                </div>
               )}
             </Box>
           </Paper>
