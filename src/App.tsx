@@ -24,6 +24,7 @@ const Masonry = lazy(() => import('./views/Masonry'));
 const Pit = lazy(() => import('./views/Pit'));
 const Vaults = lazy(() => import('./views/Vaults/Vaults'));
 const Autocompounders = lazy(() => import('./views/Autocompounders/Autocompounders'));
+const Minting = lazy(() => import('./views/Minting/Minting'));
 
 const App: React.FC = () => {
   // Clear localStorage for mobile users
@@ -60,6 +61,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/autocompounders">
               <Autocompounders />
+            </Route>
+            <Route path="/minting">
+              <Minting />
             </Route>
             <Route path="*">
               <App404 />

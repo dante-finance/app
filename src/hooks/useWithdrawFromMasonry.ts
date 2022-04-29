@@ -8,10 +8,7 @@ const useWithdrawFromMasonry = () => {
 
   const handleWithdraw = useCallback(
     (amount: string) => {
-      handleTransactionReceipt(
-        tombFinance.withdrawShareFromMasonry(amount),
-        `Withdraw ${amount} TSHARE from the masonry`,
-      );
+      handleTransactionReceipt(tombFinance.withdrawShareFromMasonry(amount), `Withdraw ${amount} Grail from Eden`);
     },
     [tombFinance, handleTransactionReceipt],
   );
