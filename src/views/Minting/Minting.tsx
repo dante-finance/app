@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Page from '../../components/Page';
 import { PageBackgroundDefault } from '../../components/PageBackground/PageBackgroundDefault';
 import { BigNumber } from 'ethers';
@@ -43,34 +43,51 @@ export default function Minting(): JSX.Element {
   const [claimTimestampEnd, setClaimTimestampEnd] = useState(Number(0));
   const [revealTimestamp, setRevealTimestamp] = useState(Number(0));
   const [saleStart, setSaleStart] = useState(Number(0));
-  const [amount, setAmount] = React.useState(Number(0));
+  const [amount, setAmount] = useState(Number(0));
 
   const tombFinance = useTombFinance();
+
+  const contract = useMemo(() => tombFinance.contracts['DanteNFT'], [tombFinance.contracts]);
 
   useEffect(() => {
     (async () => {
       if (tombFinance.myAccount) {
-        const contract = tombFinance.contracts['DanteNFT'];
-        let num = Number(await contract.claimWhitelist(tombFinance.myAccount));
-        setAmount(num);
-
-        let claim = (await contract.claimTimestampEnd()) * 1000;
-        setClaimTimestampEnd(claim);
-        let reveal = (await contract.revealTimestamp()) * 1000;
-        setRevealTimestamp(reveal);
-
         setSaleStart((await contract.saleStart()) * 1000);
       }
     })();
-  }, [tombFinance.contracts, tombFinance.myAccount]);
+  }, [contract, tombFinance.myAccount]);
 
   useEffect(() => {
-    (async () => {
-      const contract = tombFinance.contracts['DanteNFT'];
-      let price: BigNumber = await contract.price(amount.toString());
-      setTotalPrice(price);
-    })();
-  }, [amount, tombFinance.contracts]);
+    if (tombFinance.myAccount && saleStart > 0) {
+      (async () => {
+        let claim = (await contract.claimTimestampEnd()) * 1000;
+        setClaimTimestampEnd(claim);
+
+        if (Date.now() < claim) {
+          let num = Number(await contract.claimWhitelist(tombFinance.myAccount));
+          setAmount(num);
+        }
+      })();
+    }
+  }, [claimTimestampEnd, contract, saleStart, tombFinance.myAccount]);
+
+  useEffect(() => {
+    if (tombFinance.myAccount && claimTimestampEnd !== 0 && Date.now() > claimTimestampEnd) {
+      (async () => {
+        let reveal = (await contract.revealTimestamp()) * 1000;
+        setRevealTimestamp(reveal);
+      })();
+    }
+  }, [claimTimestampEnd, contract, tombFinance.myAccount]);
+
+  useEffect(() => {
+    if (amount > 0) {
+      (async () => {
+        let price: BigNumber = await contract.price(amount.toString());
+        setTotalPrice(price);
+      })();
+    }
+  }, [amount, contract]);
 
   const now = Date.now();
 
