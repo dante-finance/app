@@ -4,20 +4,20 @@ import { useComponentId } from '../../../hooks/useUniqueId';
 import { Alert } from '@material-ui/lab';
 import { useMutation } from 'react-query';
 
-interface VaultsAmountFormProps {
+interface VaultsAmountFormProps<T> {
   inputMax: number;
   inputLabel: string;
   inputDesc: ReactNode;
 
   submitLabel: string;
 
-  handleSubmitRequest: (amount: number) => Promise<void>;
+  handleSubmitRequest: (amount: number) => Promise<T>;
 
-  onSuccess: () => void;
+  onSuccess: (value: T) => void;
   onError: () => void;
 }
 
-export function VaultsAmountForm(props: VaultsAmountFormProps): JSX.Element {
+export function VaultsAmountForm<T>(props: VaultsAmountFormProps<T>): JSX.Element {
   const { inputMax, inputLabel, inputDesc, submitLabel, handleSubmitRequest, onSuccess, onError } = props;
 
   const htmlID = useComponentId();
@@ -37,9 +37,9 @@ export function VaultsAmountForm(props: VaultsAmountFormProps): JSX.Element {
   }, []);
 
   const updateMutation = useMutation(handleSubmitRequest, {
-    onSuccess() {
+    onSuccess(data) {
       setSubmitSuccess(true);
-      onSuccess();
+      onSuccess(data);
     },
     onError() {
       setSubmitError(true);
