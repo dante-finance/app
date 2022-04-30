@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import Page from '../../components/Page';
 import HomeImage from '../../assets/img/home.png';
 import CashImage from '../../assets/img/dante.svg';
-import Image from 'material-ui-image';
 import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import TokenSymbol from '../../components/TokenSymbol';
@@ -153,7 +152,7 @@ const Home = () => {
         {/* Logo */}
         <Grid container item xs={12} sm={4} justify="center">
           {/* <Paper>xs=6 sm=3</Paper> */}
-          <Image color="none" style={{ width: '300px', paddingTop: '0px' }} src={CashImage} />
+          <img src={CashImage} alt="" color="none" style={{ width: '300px', paddingTop: '0px' }} />
         </Grid>
         {/* Explanation text */}
         <Grid item xs={12} sm={8}>

@@ -1,5 +1,3 @@
-// import { ChainId } from '@pancakeswap-libs/sdk';
-//import { ChainId } from '@spookyswap/sdk';
 import { Configuration } from './tomb-finance/config';
 import { BankInfo, Vault } from './tomb-finance';
 

@@ -1,6 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-// import { ChainId } from '@uniswap/sdk';
-//import { ChainId } from '@spookyswap/sdk';
 import { ChainId } from '@ac32/spookyswap-sdk';
 
 export interface SerializableTransactionReceipt {
