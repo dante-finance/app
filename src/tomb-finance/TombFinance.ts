@@ -324,6 +324,7 @@ export class TombFinance {
       let pool1: BigNumber = (await poolContract.poolInfo(1)).allocPoint;
       let pool2: BigNumber = (await poolContract.poolInfo(2)).allocPoint;
       let pool3: BigNumber = (await poolContract.poolInfo(3)).allocPoint;
+      let pool4: BigNumber = (await poolContract.poolInfo(4)).allocPoint;
 
       switch (depositTokenName) {
         case 'DANTE-TOMB-LP':
@@ -334,6 +335,8 @@ export class TombFinance {
           return rewardPerSecond.mul(pool2).div(total);
         case 'DANTE':
           return rewardPerSecond.mul(pool3).div(total);
+        case 'DBOND':
+          return rewardPerSecond.mul(pool4).div(total);
         default:
           return 0;
       }
@@ -404,6 +407,11 @@ export class TombFinance {
         const tombInUSD = await this.getTOMBPriceInDollars();
 
         return (priceofDanteInTomb * tombInUSD).toFixed(2);
+      }
+      case 'DBOND': {
+        const stat = await this.getBondStat ();
+
+        return stat.priceInDollars;
       }
       default: {
         return '0';
