@@ -21,6 +21,7 @@ import dbondLogo from '../../assets/img/dbond.svg';
 import danteTombLpLogo from '../../assets/img/dante_tomb.png';
 import grailFtmLpLogo from '../../assets/img/grail_fantom.png';
 import danteGrailLpLogo from '../../assets/img/dante_grail.svg';
+import danteUsdcLpLogo from '../../assets/img/dante_usdc.png';
 // import danteLogoPNG from '../../assets/img/dante_500x500.png';
 
 import famePNG from '../../assets/img/fame.png';
@@ -39,7 +40,7 @@ const logosBySymbol: { [title: string]: string } = {
   'DANTE-TOMB-LP': danteTombLpLogo,
   'GRAIL-FTM-LP': grailFtmLpLogo,
   'DANTE-GRAIL-LP': danteGrailLpLogo,
-
+  'DANTE-USDC-LP': danteUsdcLpLogo,
   DANTE: danteLogo,
   GRAIL: grailLogo,
   DBOND: dbondLogo,
