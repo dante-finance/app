@@ -238,7 +238,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'GRAIL',
     finished: false,
     sort: 4,
-    closedForStaking: false,
+    closedForStaking: true,
     fee: 0,
   },
   DBondGrailRewardPool: {
