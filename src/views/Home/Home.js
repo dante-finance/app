@@ -139,10 +139,11 @@ const Home = () => {
   let genesisEnded = Date.now() > timestampEnd * 1000;
 
   const buyTombAddress =
-    'https://spookyswap.finance/swap?inputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7&outputCurrency=' +
+    'https://spooky.fi/#/swap?inputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7&outputCurrency=' +
     tombFinance.DANTE.address;
   const buyTShareAddress =
-    'https://spookyswap.finance/swap?inputCurrency=FTM&outputCurrency=' + tombFinance.TSHARE.address;
+    'https://spooky.fi/#/swap?inputCurrency=FTM&outputCurrency=' +
+    tombFinance.TSHARE.address;
   const danteGraph = 'https://dexscreener.com/fantom/'.concat(tombFinance.externalTokens['DANTE-TOMB-LP'].address);
   const grailGraph = 'https://dexscreener.com/fantom/'.concat(tombFinance.externalTokens['GRAIL-FTM-LP'].address);
 

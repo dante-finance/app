@@ -62,9 +62,6 @@ const App: React.FC = () => {
             <Route path="/autocompounders">
               <Autocompounders />
             </Route>
-            <Route path="/minting">
-              <Minting />
-            </Route>
             <Route path="*">
               <App404 />
             </Route>
